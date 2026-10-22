@@ -1,0 +1,26 @@
+# dependencies and build
+node_modules/
+dist/
+.astro/
+
+# environment
+.env
+.env.*
+!.env.example
+
+# tests and audits
+test-results/
+playwright-report/
+.lighthouseci/
+
+# local agent settings
+.claude/settings.local.json
+
+# personal notes (not part of the public repo)
+Guía definitiva workflow para construir software con IA.md
+
+# OS and editors
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
