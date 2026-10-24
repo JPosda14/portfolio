@@ -30,4 +30,4 @@ Hover y foco con `transform`/`opacity`; una entrada escalonada suave en la home;
 Contraste AA (4.5:1 texto, 3:1 elementos grandes y bordes de foco), objetivos táctiles ≥ 44 px, todo usable con teclado, foco siempre visible, `lang` correcto por página, texto alternativo en toda imagen.
 
 ## Herramientas
-Principal: Stitch o UI/UX Pro Max (se decide en Fase 3). Apoyo: Impeccable (`critique`, `audit`, `detect`).
+Principal: Stitch (exports en `design/stitch/`, referencias en `design/references/`). Resultado consolidado en `docs/DESIGN.md`. Apoyo opcional: Impeccable (`critique`, `audit`, `detect`).

@@ -19,6 +19,9 @@ playwright-report/
 # personal notes (not part of the public repo)
 Guía definitiva workflow para construir software con IA.md
 
+# third-party inspiration images (copyrighted, kept local only)
+design/references/
+
 # OS and editors
 .DS_Store
 Thumbs.db
