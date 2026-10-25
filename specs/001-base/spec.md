@@ -30,10 +30,10 @@ Celdas del bento (hero, proyectos, experiencia, skills, contacto), páginas de c
 - RF9: EL SISTEMA ofrecerá un enlace "saltar al contenido" como primer elemento enfocable de cada página.
 
 **Tema**
-- RF10: EL SISTEMA usará el tema oscuro por defecto y respetará la preferencia de color del sistema operativo del visitante.
+- RF10: EL SISTEMA mostrará el tema oscuro a todo visitante que no haya elegido otro, sin importar la preferencia de color de su sistema operativo. *(Cambio aprobado durante T7: los navegadores reportan "claro" cuando el sistema no está en oscuro, así que respetar el sistema haría que la mayoría viera la versión clara.)*
 - RF11: CUANDO el visitante use el botón de tema, EL SISTEMA alternará entre claro y oscuro y recordará la elección en visitas posteriores.
 - RF12: EL SISTEMA aplicará el tema elegido antes de pintar la página, sin parpadeo del tema contrario.
-- RF13: SI el navegador no ejecuta scripts, ENTONCES EL SISTEMA seguirá la preferencia del sistema y todo el contenido seguirá accesible.
+- RF13: SI el navegador no ejecuta scripts, ENTONCES EL SISTEMA mostrará el tema oscuro, ocultará el botón de tema y todo el contenido seguirá accesible.
 
 **Sistema de diseño**
 - RF14: EL SISTEMA aplicará los colores, tipografías, espaciados, radios y estados de foco definidos en `docs/DESIGN.md`, en ambos temas.
@@ -54,8 +54,8 @@ Celdas del bento (hero, proyectos, experiencia, skills, contacto), páginas de c
 ## Criterios de aceptación
 - `/` muestra la home en inglés con `lang="en"`; `/es/` la muestra en español con `lang="es"`.
 - En la home EN, el selector lleva a `/es/` y viceversa; ambas páginas tienen hreflang `en`, `es` y `x-default`.
-- Con el sistema en modo claro y sin elección previa, el sitio se ve claro; sin preferencia, se ve oscuro; tras pulsar el botón y recargar, se mantiene el tema elegido, sin destello.
-- Con JavaScript desactivado, la página carga completa y sigue la preferencia del sistema.
+- Sin elección previa el sitio se ve oscuro, también con el sistema en modo claro; tras pulsar el botón y recargar, se mantiene el tema elegido, sin destello.
+- Con JavaScript desactivado, la página carga completa en tema oscuro y sin botón de tema.
 - Tab desde el inicio enfoca primero "saltar al contenido" y luego los controles del encabezado, todos con foco visible.
 - Añadir `[PENDIENTE]` a un texto hace fallar la compilación de producción con un mensaje que indica el archivo.
 - Quitar una clave de traducción del archivo ES hace fallar la compilación.

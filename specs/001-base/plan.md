@@ -37,7 +37,7 @@ Scripts:
 1. **i18n nativo de Astro** con `defaultLocale: "en"`, `locales: ["en", "es"]`, `prefixDefaultLocale: false`, sin `redirectToDefaultLocale`. Cubre RF1 y RF4. *Descartado:* rutas manuales con `[lang]`, más código sin ganar nada.
 2. **Cada página declara sus alternativas** (`{ en: "/", es: "/es/" }`) y el layout genera hreflang, `x-default` y el destino del selector a partir de eso (RF2, RF3). Así funciona con slugs traducidos (`/projects/x` ↔ `/es/proyectos/x`). *Descartado:* derivar la ruta del otro idioma quitando o poniendo el prefijo, que se rompe con slugs traducidos.
 3. **Textos de interfaz como módulos TypeScript**: `en.ts` es la fuente y `es.ts` se declara con `satisfies UiStrings` (tipo derivado de `en`). Una clave faltante es un error de tipos y `astro check` (dentro de `build`) falla con el nombre de la clave (RF5, RF6). *Descartado:* JSON con validación propia (más código) y content collections con Zod para cadenas sueltas (exceso de estructura para la interfaz; sí se usarán para proyectos).
-4. **Tema con `light-dark()` y `color-scheme`**: oscuro por defecto; si el sistema prefiere claro y no hay elección guardada, claro; `data-theme` en `<html>` fuerza la elección (RF10). Un único script `is:inline` en `<head>`:
+4. **Tema con `light-dark()` y `color-scheme`**: oscuro para todos por defecto (sin mirar `prefers-color-scheme`, cambio de RF10 aprobado en T7); `data-theme="light"` en `<html>` activa el claro (RF10). Un único script `is:inline` en `<head>`:
    - lee `localStorage` y pone `data-theme` antes de pintar (RF12);
    - añade la clase `js` a `<html>` para mostrar el botón, que sin JS está oculto (RF13);
    - escucha clics por delegación en `document` para alternar y guardar (RF11).
@@ -56,9 +56,9 @@ Scripts:
 | `i18n.spec`: hreflang `en`/`es`/`x-default` y canónica correctos en ambas | RF2, RF17 |
 | `i18n.spec`: clic en el selector lleva a la otra home | RF3 |
 | `i18n.spec`: con `Accept-Language: es`, `/` sigue en inglés | RF4 |
-| `theme.spec`: sin preferencia → oscuro; `prefers-color-scheme: light` → claro | RF10 |
+| `theme.spec`: sin elección → oscuro, también con `prefers-color-scheme: light` | RF10 |
 | `theme.spec`: clic en el botón alterna, recarga y se mantiene; `data-theme` presente antes del primer pintado | RF11, RF12 |
-| `theme.spec`: con JavaScript desactivado, carga completa y el botón no se muestra | RF13 |
+| `theme.spec`: con JavaScript desactivado, carga completa en oscuro y el botón no se muestra | RF13 |
 | `a11y.spec`: axe sin infracciones en `/`, `/es/` y 404, temas claro y oscuro | RF14 (contraste), RF23 |
 | `a11y.spec`: primer Tab enfoca "saltar al contenido"; foco visible en controles | RF9, RF14 |
 | `a11y.spec`: con `reduced-motion`, ninguna animación ni transición activa | RF16 |

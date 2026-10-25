@@ -1,5 +1,7 @@
 ---
 import Fonts from "../components/Fonts.astro";
+import ThemeScript from "../components/ThemeScript.astro";
+import ThemeToggle from "../components/ThemeToggle.astro";
 import { defaultLocale, getUi, locales, type Alternates, type Locale } from "../i18n/index.ts";
 import "../styles/global.css";
 
@@ -22,6 +24,7 @@ const absolute = (path: string) => new URL(path, site).href;
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <ThemeScript />
     <title>{title ?? ui.meta.title}</title>
     <meta name="description" content={description ?? ui.meta.description} />
     <link rel="canonical" href={absolute(alternates[locale])} />
@@ -31,6 +34,8 @@ const absolute = (path: string) => new URL(path, site).href;
     <Fonts />
   </head>
   <body>
+    <!-- Moves into the site header in T8. -->
+    <ThemeToggle label={ui.theme.toggle} />
     <slot />
   </body>
 </html>

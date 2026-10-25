@@ -8,8 +8,8 @@ const themes = {
 
 for (const [scheme, colors] of Object.entries(themes)) {
   test(`applies the ${scheme} theme tokens`, async ({ page }) => {
-    await page.emulateMedia({ colorScheme: scheme as "dark" | "light" });
     await page.goto("/");
+    await page.evaluate((theme) => (document.documentElement.dataset["theme"] = theme), scheme);
     const body = page.locator("body");
     await expect(body).toHaveCSS("background-color", colors.bg);
     await expect(body).toHaveCSS("color", colors.text);

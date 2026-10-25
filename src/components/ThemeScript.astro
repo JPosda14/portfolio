@@ -1,0 +1,23 @@
+---
+// The only client-side JS of the site. Runs in <head> so the saved theme applies before the first paint.
+---
+
+<script is:inline>
+  (() => {
+    const root = document.documentElement;
+    const KEY = "theme";
+    root.classList.add("js");
+    try {
+      if (localStorage.getItem(KEY) === "light") root.dataset.theme = "light";
+    } catch {}
+    document.addEventListener("click", (event) => {
+      if (!(event.target instanceof Element) || !event.target.closest("[data-theme-toggle]")) return;
+      const next = root.dataset.theme === "light" ? "dark" : "light";
+      if (next === "light") root.dataset.theme = "light";
+      else delete root.dataset.theme;
+      try {
+        localStorage.setItem(KEY, next);
+      } catch {}
+    });
+  })();
+</script>

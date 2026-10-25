@@ -26,9 +26,9 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   Tests `i18n.spec` (lang, hreflang, x-default, canónica, sin redirección) primero; luego `BaseLayout.astro` con alternativas por página y las dos homes con anclas vacías.
   Hecho cuando: `i18n.spec` pasa en ambos proyectos y `dist/sitemap-index.xml` lista las dos homes con sus alternativas.
 
-- [ ] **T7 Tema claro/oscuro** · RF10, RF11, RF12, RF13
+- [x] **T7 Tema claro/oscuro** · RF10, RF11, RF12, RF13
   Tests `theme.spec` primero; luego el script inline y `ThemeToggle.astro`.
-  Hecho cuando: `theme.spec` pasa (preferencia del sistema, alternar y recordar, sin destello, sin JS) en ambos proyectos.
+  Hecho cuando: `theme.spec` pasa (oscuro por defecto aunque el sistema esté en claro, alternar y recordar, sin destello, sin JS) en ambos proyectos.
 
 - [ ] **T8 Encabezado, pie y saltar al contenido** · RF3, RF7, RF8, RF9
   Tests de `quality.spec` (elementos de encabezado y pie) y de `i18n.spec` (selector) primero; luego `SkipLink`, `SiteHeader`, `LanguageSwitch`, `SiteFooter`.

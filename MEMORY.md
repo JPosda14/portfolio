@@ -9,7 +9,8 @@
 - T3 hecha: integración `integrations/pending-guard.mjs` (falla el build si el HTML tiene [PENDIENTE]) + `src/lib/pending.ts` y `<Text value>` para resaltarlo en desarrollo. Todo texto de contenido debe pasar por `<Text>`. En Windows, tras el error del build Node imprime un assert de libuv: es ruido, el bloqueo funciona.
 - T4 hecha: textos en `src/content/ui/{en,es}.ts` (`es` usa `satisfies UiStrings`, falta de clave = error de `astro check` con su nombre) y `src/i18n/index.ts` (locales, getUi, Alternates). Imports entre .ts con extensión `.ts` explícita para que `node --test` pueda importarlos.
 - T5 hecha: `src/styles/tokens.css` (light-dark + color-scheme; data-theme fuerza tema), `global.css`, Fonts API con fontsource (Geist sí existe; 8 WOFF2 ~13–22 KB) vía `<Fonts />`. Playwright usa el puerto 4322 para no reutilizar `astro dev` (4321) y probar siempre el build.
-- T6 hecha: `BaseLayout.astro` (title, description, canónica, hreflang + x-default desde `alternates`, favicon, fuentes) y `HomePage.astro` compartida por `/` y `/es/` con anclas vacías. Lighthouse: 100 en las 4 categorías en ambas homes. Siguiente: T7.
+- T6 hecha: `BaseLayout.astro` (title, description, canónica, hreflang + x-default desde `alternates`, favicon, fuentes) y `HomePage.astro` compartida por `/` y `/es/` con anclas vacías. Lighthouse: 100 en las 4 categorías en ambas homes.
+- T7 hecha: `ThemeScript.astro` (único JS, inline en head; añade clase `js`, aplica `data-theme="light"` guardado, delegación de clic) y `ThemeToggle.astro` (oculto sin JS). Temporalmente arriba del body; pasa al encabezado en T8. Siguiente: T8.
 - `npm audit`: 0 vulnerabilidades en producción; 16 en dev, todas vía @lhci/cli (no se publica). Revisar al actualizar lhci.
 - Navegador de pruebas: el integrado de la app (sin Playwright MCP); Playwright solo como dependencia de tests.
 - Repo público: https://github.com/JPosda14/portfolio (rama main).
@@ -23,6 +24,7 @@
 - Estructura primero con datos del CV y `[PENDIENTE]`; contenido real de cada caso después.
 - Investigación con búsqueda integrada y subagentes, uno por tema: Perplexity es de pago.
 - La guía personal de workflow queda fuera del repo público (.gitignore).
+- Tema: oscuro para todos por defecto, sin mirar la preferencia del sistema (Juan, en T7): los navegadores reportan "claro" si el sistema no está en oscuro y la mayoría vería la versión clara. El claro solo con el botón.
 - Diseño: Playfair Display + Geist (no Inter) + JetBrains Mono, azul #0047FF, oscuro por defecto; etiquetas mono "telemetría" solo con datos reales; hover sin glow.
 
 ## Aprendizajes de Stitch

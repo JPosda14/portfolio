@@ -1,4 +1,4 @@
-/* Design tokens from docs/DESIGN.md. Dark is the default; light follows the system or data-theme. */
+/* Design tokens from docs/DESIGN.md. Dark for everyone by default; data-theme="light" switches to light. */
 :root {
   color-scheme: dark;
 
@@ -50,16 +50,6 @@
   --ease: ease;
 }
 
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
-    color-scheme: light;
-  }
-}
-
 :root[data-theme="light"] {
   color-scheme: light;
-}
-
-:root[data-theme="dark"] {
-  color-scheme: dark;
 }
