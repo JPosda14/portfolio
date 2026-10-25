@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import pendingGuard from "./integrations/pending-guard.mjs";
 
 export default defineConfig({
   site: "https://juanposada.dev",
@@ -19,5 +20,6 @@ export default defineConfig({
         locales: { en: "en", es: "es" },
       },
     }),
+    pendingGuard(),
   ],
 });

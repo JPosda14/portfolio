@@ -10,7 +10,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   `playwright.config.ts` (escritorio y Pixel 7 contra `preview`), `lighthouserc.json` (umbral 0.95 × 4, `/` y `/es/`), instalar Chromium, un test humo.
   Hecho cuando: `npm test` corre el test humo en ambos proyectos y `npm run lhci` produce un informe.
 
-- [ ] **T3 Guarda de `[PENDIENTE]`** · RF20
+- [x] **T3 Guarda de `[PENDIENTE]`** · RF20
   Test unitario primero (`node --test`), luego la integración `astro:build:done` y el helper que resalta el marcador en desarrollo.
   Hecho cuando: el test pasa y añadir `[PENDIENTE]` temporalmente a la home hace fallar `npm run build` con la ruta de la página.
 

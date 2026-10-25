@@ -1,0 +1,24 @@
+---
+// Renders a content string, highlighting [PENDIENTE] so missing content is visible in development.
+import { splitPending } from "../lib/pending";
+
+interface Props {
+  value: string;
+}
+
+const parts = splitPending(Astro.props.value);
+---
+
+{parts.map((part) => (part.pending ? <mark class="pending">{part.text}</mark> : part.text))}
+
+<style>
+  .pending {
+    padding: 0 0.375rem;
+    border: 1px dashed var(--pending, #facc15);
+    border-radius: 4px;
+    background: transparent;
+    color: var(--pending, #facc15);
+    font-family: var(--font-mono, ui-monospace, monospace);
+    font-size: 0.75rem;
+  }
+</style>
