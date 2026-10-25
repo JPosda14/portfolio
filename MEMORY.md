@@ -3,7 +3,7 @@
 ## Estado actual
 - Fase 0 (investigación + entrevista) y Fase 1 (documentos) aprobadas.
 - Fase 2 (arnés) completa: AGENTS.md, skill `sdd`, comandos `/sdd-*`, Context7 en `.mcp.json` (proyecto, sin key).
-- Fase 3 aprobada y en commit (docs/DESIGN.md). Referencias de Pinterest solo locales (.gitignore). Commits sin push desde f50986c.
+- Fase 3 aprobada y en commit (docs/DESIGN.md). Referencias de Pinterest solo locales (.gitignore).
 - Fase 4: 001-base aprobada (spec, plan, tareas). T1 hecha: Astro 7.4.2, @astrojs/sitemap 3.7.4, @astrojs/check 0.9.12, TypeScript 6.0.3; dev: Playwright, axe, @lhci/cli (versiones exactas en package.json).
 - T2 hecha: Playwright (desktop 1280 + Pixel 7) contra build+preview en :4321; Lighthouse CI sobre dist/ (3 runs, umbral 0.95). Línea base: perf 1, a11y 1, bp 0.96, seo 0.91 (falta meta description → T6; error de consola, probable /favicon.ico 404 → enlazar favicon en T6).
 - T3 hecha: integración `integrations/pending-guard.mjs` (falla el build si el HTML tiene [PENDIENTE]) + `src/lib/pending.ts` y `<Text value>` para resaltarlo en desarrollo. Todo texto de contenido debe pasar por `<Text>`. En Windows, tras el error del build Node imprime un assert de libuv: es ruido, el bloqueo funciona.
@@ -13,7 +13,7 @@
 - T7 hecha: `ThemeScript.astro` (único JS, inline en head; añade clase `js`, aplica `data-theme="light"` guardado, delegación de clic) y `ThemeToggle.astro` (oculto sin JS). 
 - T8 hecha: SkipLink, SiteHeader (logo, nav a anclas, LanguageSwitch, ThemeToggle; en < 640 px la nav baja a una segunda fila), SiteFooter (año + repo; privacidad en 006). Body en grid de 3 filas para que el pie quede abajo. El enlace del selector tiene texto oculto "Ver en español: ES" para que el nombre accesible contenga lo visible.
 - T9 hecha: `404.astro` bilingüe (dos tarjetas EN/ES, `noindex`, fuera del sitemap); `BaseLayout` acepta `noindex`. Tests: un solo script inline, ningún `<script src>`, cero peticiones a otros dominios en `/`, `/es/` y 404. En Playwright, leer el contenido de un `<script>` con `textContent` (no `toHaveText`).
-- T10 hecha: `a11y.spec` (axe WCAG 2.2 AA en `/`, `/es/`, 404 × claro/oscuro, skip link, foco visible en el encabezado) sin infracciones; README en inglés con cómo correrlo y decisiones. Totales: check 0 errores, 9 unit, 84 e2e, Lighthouse 100×4 en ambas homes. Las 10 tareas de 001 están hechas; siguiente: /sdd-validate 001-base.
+- T10 hecha: `a11y.spec` (axe WCAG 2.2 AA en `/`, `/es/`, 404 × claro/oscuro, skip link, foco visible en el encabezado) sin infracciones; README en inglés con cómo correrlo y decisiones. Totales: check 0 errores, 9 unit, 84 e2e, Lighthouse 100×4 en ambas homes. Spec 001 validada y cerrada (2026-10-25): 22/23 RF, RF8 parcial hasta 006. Pendientes menores: RF6 y la parte de build de RF20 solo verificados a mano; probar con lector de pantalla real.
 - `npm audit`: 0 vulnerabilidades en producción; 16 en dev, todas vía @lhci/cli (no se publica). Revisar al actualizar lhci.
 - Navegador de pruebas: el integrado de la app (sin Playwright MCP); Playwright solo como dependencia de tests.
 - Repo público: https://github.com/JPosda14/portfolio (rama main).
@@ -39,5 +39,5 @@
 - `node --test` necesita un glob (`tests/unit/**/*.test.mjs`), no una carpeta.
 
 ## Próximos pasos
-- /sdd-validate 001-base; después spec 002-hero.
+- Spec 002-hero (/sdd-spec 002-hero).
 - Pendiente de decidir: analítica (Cloudflare vs Umami).

@@ -42,4 +42,4 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   `a11y.spec` (axe en todas las páginas y temas, primer Tab, reduced-motion); ajustes de contraste si falla; `README.md` con cómo correr el proyecto y sus decisiones técnicas.
   Hecho cuando: `npm run check && npm test` está en verde, `npm run lhci` ≥ 0.95 en las 4 categorías para `/` y `/es/`, y el README explica la instalación y enlaza a `docs/`.
 
-Después: `/sdd-validate 001-base`.
+**Validada y cerrada por Juan (2026-10-25):** 22/23 RF cumplen; RF8 parcial a propósito (enlace a privacidad en la spec 006). check 0 errores, 9 unit, 84 e2e, Lighthouse 100 × 4 en `/` y `/es/`.
