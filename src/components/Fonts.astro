@@ -1,0 +1,8 @@
+---
+// Self-hosted brand fonts. Only the faces visible above the fold are preloaded.
+import { Font } from "astro:assets";
+---
+
+<Font cssVariable="--font-body" preload={[{ weight: 400, style: "normal" }]} />
+<Font cssVariable="--font-display" preload={[{ weight: 400, style: "normal" }]} />
+<Font cssVariable="--font-mono" />

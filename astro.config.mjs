@@ -1,5 +1,5 @@
 // @ts-check
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import pendingGuard from "./integrations/pending-guard.mjs";
 
@@ -13,6 +13,35 @@ export default defineConfig({
       prefixDefaultLocale: false,
     },
   },
+  fonts: [
+    {
+      name: "Playfair Display",
+      cssVariable: "--font-display",
+      provider: fontProviders.fontsource(),
+      weights: [400, 500],
+      styles: ["normal", "italic"],
+      subsets: ["latin"],
+      fallbacks: ["Georgia", "serif"],
+    },
+    {
+      name: "Geist",
+      cssVariable: "--font-body",
+      provider: fontProviders.fontsource(),
+      weights: [400, 600],
+      styles: ["normal"],
+      subsets: ["latin"],
+      fallbacks: ["system-ui", "sans-serif"],
+    },
+    {
+      name: "JetBrains Mono",
+      cssVariable: "--font-mono",
+      provider: fontProviders.fontsource(),
+      weights: [500, 600],
+      styles: ["normal"],
+      subsets: ["latin"],
+      fallbacks: ["ui-monospace", "monospace"],
+    },
+  ],
   integrations: [
     sitemap({
       i18n: {

@@ -18,7 +18,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   `src/content/ui/en.ts` y `es.ts` (nav, pie, skip link, tema, idioma, meta, 404, ids de anclas), `src/i18n/index.ts`.
   Hecho cuando: borrar una clave de `es.ts` hace fallar `npm run check` con el nombre de la clave, y restaurarla lo deja en verde.
 
-- [ ] **T5 Tokens y estilos globales** · RF14, RF16
+- [x] **T5 Tokens y estilos globales** · RF14, RF15, RF16
   `tokens.css` con todos los tokens de `docs/DESIGN.md` en `light-dark()`, `global.css` (reset, base tipográfica, `:focus-visible`, reduced-motion), Fonts API con Playfair, Geist y JetBrains Mono.
   Hecho cuando: el build sirve las fuentes desde el propio sitio y una página de prueba muestra las 3 fuentes y ambos temas con los colores de DESIGN.md.
 
