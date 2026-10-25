@@ -1,0 +1,36 @@
+---
+import Fonts from "../components/Fonts.astro";
+import { defaultLocale, getUi, locales, type Alternates, type Locale } from "../i18n/index.ts";
+import "../styles/global.css";
+
+interface Props {
+  locale: Locale;
+  /** Path of this same page in every language. */
+  alternates: Alternates;
+  title?: string;
+  description?: string;
+}
+
+const { locale, alternates, title, description } = Astro.props;
+const ui = getUi(locale);
+const site = Astro.site ?? new URL("https://juanposada.dev");
+const absolute = (path: string) => new URL(path, site).href;
+---
+
+<!doctype html>
+<html lang={locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title ?? ui.meta.title}</title>
+    <meta name="description" content={description ?? ui.meta.description} />
+    <link rel="canonical" href={absolute(alternates[locale])} />
+    {locales.map((code) => <link rel="alternate" hreflang={code} href={absolute(alternates[code])} />)}
+    <link rel="alternate" hreflang="x-default" href={absolute(alternates[defaultLocale])} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <Fonts />
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

@@ -1,0 +1,21 @@
+---
+// Home shared by both languages. The bento cells arrive in specs 002–005; the anchors exist already.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getUi, type Locale } from "../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+---
+
+<BaseLayout locale={locale} alternates={{ en: "/", es: "/es/" }}>
+  <main id="main">
+    <h1>{ui.site.name}</h1>
+    <section id={ui.anchors.projects}></section>
+    <section id={ui.anchors.experience}></section>
+    <section id={ui.anchors.contact}></section>
+  </main>
+</BaseLayout>

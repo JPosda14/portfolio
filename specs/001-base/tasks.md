@@ -22,7 +22,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   `tokens.css` con todos los tokens de `docs/DESIGN.md` en `light-dark()`, `global.css` (reset, base tipográfica, `:focus-visible`, reduced-motion), Fonts API con Playfair, Geist y JetBrains Mono.
   Hecho cuando: el build sirve las fuentes desde el propio sitio y una página de prueba muestra las 3 fuentes y ambos temas con los colores de DESIGN.md.
 
-- [ ] **T6 Layout base con SEO e idiomas** · RF1, RF2, RF4, RF17, RF18
+- [x] **T6 Layout base con SEO e idiomas** · RF1, RF2, RF4, RF17, RF18
   Tests `i18n.spec` (lang, hreflang, x-default, canónica, sin redirección) primero; luego `BaseLayout.astro` con alternativas por página y las dos homes con anclas vacías.
   Hecho cuando: `i18n.spec` pasa en ambos proyectos y `dist/sitemap-index.xml` lista las dos homes con sus alternativas.
 
