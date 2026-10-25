@@ -3,7 +3,9 @@
 ## Estado actual
 - Fase 0 (investigación + entrevista) y Fase 1 (documentos) aprobadas.
 - Fase 2 (arnés) completa: AGENTS.md, skill `sdd`, comandos `/sdd-*`, Context7 en `.mcp.json` (proyecto, sin key).
-- Fase 3 con Stitch: export en design/stitch/, referencias en design/references/, sistema consolidado en docs/DESIGN.md (pendiente de aprobación). Prototipo HTML propio en design/prototype/ solo como referencia.
+- Fase 3 aprobada y en commit (docs/DESIGN.md). Referencias de Pinterest solo locales (.gitignore). Commits sin push desde f50986c.
+- Fase 4: 001-base aprobada (spec, plan, tareas). T1 hecha: Astro 7.4.2, @astrojs/sitemap 3.7.4, @astrojs/check 0.9.12, TypeScript 6.0.3; dev: Playwright, axe, @lhci/cli (versiones exactas en package.json). Siguiente: T2.
+- `npm audit`: 0 vulnerabilidades en producción; 16 en dev, todas vía @lhci/cli (no se publica). Revisar al actualizar lhci.
 - Navegador de pruebas: el integrado de la app (sin Playwright MCP); Playwright solo como dependencia de tests.
 - Repo público: https://github.com/JPosda14/portfolio (rama main).
 
@@ -23,7 +25,9 @@
 
 ## Aprendizajes y errores a evitar
 - Lanzar varios subagentes de investigación a la vez no le gustó a Juan: un tema por vez y revisar.
+- Una corrección masiva con PowerShell 5.1 corrompió tildes (lee sin BOM como ANSI); se reparó. Editar archivos solo con las herramientas de archivo.
+- `node --test` necesita un glob (`tests/unit/**/*.test.mjs`), no una carpeta.
 
 ## Próximos pasos
-- Fase 3: identidad visual y DESIGN.md.
+- 001-base: T2 a T10, luego /sdd-validate 001-base.
 - Pendiente de decidir: analítica (Cloudflare vs Umami).
