@@ -38,7 +38,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   Tests primero (404 con enlaces a ambas homes, sin `<script src>` y un solo script inline, sin peticiones externas); luego `404.astro`.
   Hecho cuando: `quality.spec` pasa completo en ambos proyectos.
 
-- [ ] **T10 Accesibilidad, README y cierre** · RF9, RF14, RF16, RF22, RF23
+- [x] **T10 Accesibilidad, README y cierre** · RF9, RF14, RF16, RF22, RF23 (reduced-motion quedó probado en `design.spec`, T5)
   `a11y.spec` (axe en todas las páginas y temas, primer Tab, reduced-motion); ajustes de contraste si falla; `README.md` con cómo correr el proyecto y sus decisiones técnicas.
   Hecho cuando: `npm run check && npm test` está en verde, `npm run lhci` ≥ 0.95 en las 4 categorías para `/` y `/es/`, y el README explica la instalación y enlaza a `docs/`.
 

@@ -12,7 +12,8 @@
 - T6 hecha: `BaseLayout.astro` (title, description, canónica, hreflang + x-default desde `alternates`, favicon, fuentes) y `HomePage.astro` compartida por `/` y `/es/` con anclas vacías. Lighthouse: 100 en las 4 categorías en ambas homes.
 - T7 hecha: `ThemeScript.astro` (único JS, inline en head; añade clase `js`, aplica `data-theme="light"` guardado, delegación de clic) y `ThemeToggle.astro` (oculto sin JS). 
 - T8 hecha: SkipLink, SiteHeader (logo, nav a anclas, LanguageSwitch, ThemeToggle; en < 640 px la nav baja a una segunda fila), SiteFooter (año + repo; privacidad en 006). Body en grid de 3 filas para que el pie quede abajo. El enlace del selector tiene texto oculto "Ver en español: ES" para que el nombre accesible contenga lo visible.
-- T9 hecha: `404.astro` bilingüe (dos tarjetas EN/ES, `noindex`, fuera del sitemap); `BaseLayout` acepta `noindex`. Tests: un solo script inline, ningún `<script src>`, cero peticiones a otros dominios en `/`, `/es/` y 404. En Playwright, leer el contenido de un `<script>` con `textContent` (no `toHaveText`). Siguiente: T10.
+- T9 hecha: `404.astro` bilingüe (dos tarjetas EN/ES, `noindex`, fuera del sitemap); `BaseLayout` acepta `noindex`. Tests: un solo script inline, ningún `<script src>`, cero peticiones a otros dominios en `/`, `/es/` y 404. En Playwright, leer el contenido de un `<script>` con `textContent` (no `toHaveText`).
+- T10 hecha: `a11y.spec` (axe WCAG 2.2 AA en `/`, `/es/`, 404 × claro/oscuro, skip link, foco visible en el encabezado) sin infracciones; README en inglés con cómo correrlo y decisiones. Totales: check 0 errores, 9 unit, 84 e2e, Lighthouse 100×4 en ambas homes. Las 10 tareas de 001 están hechas; siguiente: /sdd-validate 001-base.
 - `npm audit`: 0 vulnerabilidades en producción; 16 en dev, todas vía @lhci/cli (no se publica). Revisar al actualizar lhci.
 - Navegador de pruebas: el integrado de la app (sin Playwright MCP); Playwright solo como dependencia de tests.
 - Repo público: https://github.com/JPosda14/portfolio (rama main).
@@ -38,5 +39,5 @@
 - `node --test` necesita un glob (`tests/unit/**/*.test.mjs`), no una carpeta.
 
 ## Próximos pasos
-- 001-base: T2 a T10, luego /sdd-validate 001-base.
+- /sdd-validate 001-base; después spec 002-hero.
 - Pendiente de decidir: analítica (Cloudflare vs Umami).
