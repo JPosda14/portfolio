@@ -30,7 +30,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   Tests `theme.spec` primero; luego el script inline y `ThemeToggle.astro`.
   Hecho cuando: `theme.spec` pasa (oscuro por defecto aunque el sistema esté en claro, alternar y recordar, sin destello, sin JS) en ambos proyectos.
 
-- [ ] **T8 Encabezado, pie y saltar al contenido** · RF3, RF7, RF8, RF9
+- [x] **T8 Encabezado, pie y saltar al contenido** · RF3, RF7, RF8, RF9
   Tests de `quality.spec` (elementos de encabezado y pie) y de `i18n.spec` (selector) primero; luego `SkipLink`, `SiteHeader`, `LanguageSwitch`, `SiteFooter`.
   Hecho cuando: los tests pasan y la revisión en navegador a 1280, 768 y 375 px coincide con DESIGN.md en ambos temas y ambos idiomas.
 

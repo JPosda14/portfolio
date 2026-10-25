@@ -1,7 +1,9 @@
 ---
 import Fonts from "../components/Fonts.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SkipLink from "../components/SkipLink.astro";
 import ThemeScript from "../components/ThemeScript.astro";
-import ThemeToggle from "../components/ThemeToggle.astro";
 import { defaultLocale, getUi, locales, type Alternates, type Locale } from "../i18n/index.ts";
 import "../styles/global.css";
 
@@ -34,8 +36,9 @@ const absolute = (path: string) => new URL(path, site).href;
     <Fonts />
   </head>
   <body>
-    <!-- Moves into the site header in T8. -->
-    <ThemeToggle label={ui.theme.toggle} />
+    <SkipLink label={ui.a11y.skipToContent} />
+    <SiteHeader locale={locale} alternates={alternates} />
     <slot />
+    <SiteFooter locale={locale} />
   </body>
 </html>

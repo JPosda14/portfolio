@@ -39,6 +39,23 @@ test("the two homes show different texts", async ({ page }) => {
   expect(enDescription).not.toBe(esDescription);
 });
 
+test("the language switch goes to the same page in the other language and back", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("link", { name: "Ver en español" }).click();
+  await expect(page).toHaveURL(/\/es\/$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "es");
+
+  await page.getByRole("link", { name: "View in English" }).click();
+  await expect(page).toHaveURL(/:\d+\/$/);
+  await expect(page.locator("html")).toHaveAttribute("lang", "en");
+});
+
+test("the language switch marks the current language", async ({ page }) => {
+  await page.goto("/es/");
+  const current = page.getByRole("navigation", { name: "Idioma" }).locator('[aria-current="true"]');
+  await expect(current).toHaveText("ES");
+});
+
 test("does not redirect based on the browser language", async ({ browser }) => {
   const context = await browser.newContext({ locale: "es-CO", extraHTTPHeaders: { "Accept-Language": "es-CO,es;q=0.9" } });
   const page = await context.newPage();

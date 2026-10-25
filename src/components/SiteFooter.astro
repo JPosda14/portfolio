@@ -1,0 +1,47 @@
+---
+// The privacy link is added in spec 006, together with the privacy page.
+import { getUi, type Locale } from "../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const ui = getUi(Astro.props.locale);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="bar">
+    <p>© {year} {ui.site.name}</p>
+    <a href="https://github.com/JPosda14/portfolio">{ui.footer.source}</a>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-6);
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--space-6) var(--margin);
+    font: 500 var(--text-label) / 1.6 var(--font-mono);
+    color: var(--text-2);
+  }
+
+  a {
+    display: inline-block;
+    padding: var(--space-2) 0;
+    margin: calc(-1 * var(--space-2)) 0;
+    text-underline-offset: 4px;
+  }
+
+  a:hover {
+    color: var(--text);
+  }
+</style>

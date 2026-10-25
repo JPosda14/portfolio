@@ -1,0 +1,61 @@
+---
+import { getUi, locales, type Alternates, type Locale } from "../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+  alternates: Alternates;
+}
+
+const { locale, alternates } = Astro.props;
+const ui = getUi(locale);
+---
+
+<nav class="language-switch" aria-label={ui.language.label}>
+  {
+    locales.map((code) =>
+      code === locale ? (
+        <span class="option current" aria-current="true">
+          {code.toUpperCase()}
+        </span>
+      ) : (
+        <a class="option" href={alternates[code]} hreflang={code} lang={code}>
+          <span class="visually-hidden">{ui.language.switchTo}: </span>
+          {code.toUpperCase()}
+        </a>
+      ),
+    )
+  }
+</nav>
+
+<style>
+  .language-switch {
+    display: inline-flex;
+    gap: 2px;
+    padding: 3px;
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-full);
+  }
+
+  .option {
+    display: inline-grid;
+    place-items: center;
+    min-width: 2.75rem;
+    min-height: 2.25rem;
+    padding: 0 var(--space-2);
+    border-radius: var(--radius-full);
+    font: 600 var(--text-label) / 1 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    color: var(--text-2);
+    transition: color var(--duration) var(--ease);
+  }
+
+  a.option:hover {
+    color: var(--text);
+  }
+
+  .current {
+    background: var(--accent);
+    color: var(--on-accent);
+  }
+</style>

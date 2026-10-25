@@ -10,7 +10,8 @@
 - T4 hecha: textos en `src/content/ui/{en,es}.ts` (`es` usa `satisfies UiStrings`, falta de clave = error de `astro check` con su nombre) y `src/i18n/index.ts` (locales, getUi, Alternates). Imports entre .ts con extensión `.ts` explícita para que `node --test` pueda importarlos.
 - T5 hecha: `src/styles/tokens.css` (light-dark + color-scheme; data-theme fuerza tema), `global.css`, Fonts API con fontsource (Geist sí existe; 8 WOFF2 ~13–22 KB) vía `<Fonts />`. Playwright usa el puerto 4322 para no reutilizar `astro dev` (4321) y probar siempre el build.
 - T6 hecha: `BaseLayout.astro` (title, description, canónica, hreflang + x-default desde `alternates`, favicon, fuentes) y `HomePage.astro` compartida por `/` y `/es/` con anclas vacías. Lighthouse: 100 en las 4 categorías en ambas homes.
-- T7 hecha: `ThemeScript.astro` (único JS, inline en head; añade clase `js`, aplica `data-theme="light"` guardado, delegación de clic) y `ThemeToggle.astro` (oculto sin JS). Temporalmente arriba del body; pasa al encabezado en T8. Siguiente: T8.
+- T7 hecha: `ThemeScript.astro` (único JS, inline en head; añade clase `js`, aplica `data-theme="light"` guardado, delegación de clic) y `ThemeToggle.astro` (oculto sin JS). 
+- T8 hecha: SkipLink, SiteHeader (logo, nav a anclas, LanguageSwitch, ThemeToggle; en < 640 px la nav baja a una segunda fila), SiteFooter (año + repo; privacidad en 006). Body en grid de 3 filas para que el pie quede abajo. El enlace del selector tiene texto oculto "Ver en español: ES" para que el nombre accesible contenga lo visible. Siguiente: T9.
 - `npm audit`: 0 vulnerabilidades en producción; 16 en dev, todas vía @lhci/cli (no se publica). Revisar al actualizar lhci.
 - Navegador de pruebas: el integrado de la app (sin Playwright MCP); Playwright solo como dependencia de tests.
 - Repo público: https://github.com/JPosda14/portfolio (rama main).

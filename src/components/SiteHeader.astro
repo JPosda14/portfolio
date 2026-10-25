@@ -1,0 +1,107 @@
+---
+import LanguageSwitch from "./LanguageSwitch.astro";
+import ThemeToggle from "./ThemeToggle.astro";
+import { getUi, type Alternates, type Locale } from "../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+  alternates: Alternates;
+}
+
+const { locale, alternates } = Astro.props;
+const ui = getUi(locale);
+const home = locale === "en" ? "/" : `/${locale}/`;
+const sections = [
+  { label: ui.nav.projects, anchor: ui.anchors.projects },
+  { label: ui.nav.experience, anchor: ui.anchors.experience },
+  { label: ui.nav.contact, anchor: ui.anchors.contact },
+];
+---
+
+<header class="site-header">
+  <div class="bar">
+    <a class="logo" href={home}>juan<span class="dot">.</span>posada</a>
+    <nav class="sections" aria-label={ui.nav.label}>
+      <ul>
+        {sections.map(({ label, anchor }) => <li><a href={`${home}#${anchor}`}>{label}</a></li>)}
+      </ul>
+    </nav>
+    <div class="controls">
+      <LanguageSwitch locale={locale} alternates={alternates} />
+      <ThemeToggle label={ui.theme.toggle} />
+    </div>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .bar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-areas: "logo sections controls";
+    align-items: center;
+    gap: var(--space-4) var(--space-6);
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--space-4) var(--margin);
+  }
+
+  .logo {
+    grid-area: logo;
+    font: 600 var(--text-md) / 1 var(--font-mono);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .dot {
+    color: var(--accent-text);
+  }
+
+  .sections {
+    grid-area: sections;
+  }
+
+  .sections ul {
+    display: flex;
+    gap: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .sections a {
+    display: inline-block;
+    padding: var(--space-2) 0;
+    color: var(--text-2);
+    font-size: var(--text-md);
+    text-decoration: none;
+    transition: color var(--duration) var(--ease);
+  }
+
+  .sections a:hover {
+    color: var(--text);
+  }
+
+  .controls {
+    grid-area: controls;
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  @media (max-width: 639px) {
+    .bar {
+      grid-template-columns: 1fr auto;
+      grid-template-areas:
+        "logo controls"
+        "sections sections";
+      row-gap: var(--space-2);
+    }
+
+    .sections ul {
+      gap: var(--space-4);
+    }
+  }
+</style>
