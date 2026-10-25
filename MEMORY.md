@@ -4,7 +4,8 @@
 - Fase 0 (investigación + entrevista) y Fase 1 (documentos) aprobadas.
 - Fase 2 (arnés) completa: AGENTS.md, skill `sdd`, comandos `/sdd-*`, Context7 en `.mcp.json` (proyecto, sin key).
 - Fase 3 aprobada y en commit (docs/DESIGN.md). Referencias de Pinterest solo locales (.gitignore). Commits sin push desde f50986c.
-- Fase 4: 001-base aprobada (spec, plan, tareas). T1 hecha: Astro 7.4.2, @astrojs/sitemap 3.7.4, @astrojs/check 0.9.12, TypeScript 6.0.3; dev: Playwright, axe, @lhci/cli (versiones exactas en package.json). Siguiente: T2.
+- Fase 4: 001-base aprobada (spec, plan, tareas). T1 hecha: Astro 7.4.2, @astrojs/sitemap 3.7.4, @astrojs/check 0.9.12, TypeScript 6.0.3; dev: Playwright, axe, @lhci/cli (versiones exactas en package.json).
+- T2 hecha: Playwright (desktop 1280 + Pixel 7) contra build+preview en :4321; Lighthouse CI sobre dist/ (3 runs, umbral 0.95). Línea base: perf 1, a11y 1, bp 0.96, seo 0.91 (falta meta description → T6; error de consola, probable /favicon.ico 404 → enlazar favicon en T6). Siguiente: T3.
 - `npm audit`: 0 vulnerabilidades en producción; 16 en dev, todas vía @lhci/cli (no se publica). Revisar al actualizar lhci.
 - Navegador de pruebas: el integrado de la app (sin Playwright MCP); Playwright solo como dependencia de tests.
 - Repo público: https://github.com/JPosda14/portfolio (rama main).

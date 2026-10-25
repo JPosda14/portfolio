@@ -6,7 +6,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   Instalar las dependencias del plan con versiones fijadas, `astro.config.mjs` (site, i18n, sitemap), `tsconfig` estricto, scripts `dev/build/preview/check/test/lhci`, `public/favicon.svg` y `robots.txt`.
   Hecho cuando: `npm run build` genera `dist/` con `/` y `/es/` (páginas mínimas) y `npm run check` pasa.
 
-- [ ] **T2 Montar la infraestructura de pruebas** · RF22, RF23
+- [x] **T2 Montar la infraestructura de pruebas** · RF22, RF23 (infraestructura; los umbrales se cumplen en T6–T10)
   `playwright.config.ts` (escritorio y Pixel 7 contra `preview`), `lighthouserc.json` (umbral 0.95 × 4, `/` y `/es/`), instalar Chromium, un test humo.
   Hecho cuando: `npm test` corre el test humo en ambos proyectos y `npm run lhci` produce un informe.
 
