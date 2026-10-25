@@ -34,7 +34,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   Tests de `quality.spec` (elementos de encabezado y pie) y de `i18n.spec` (selector) primero; luego `SkipLink`, `SiteHeader`, `LanguageSwitch`, `SiteFooter`.
   Hecho cuando: los tests pasan y la revisión en navegador a 1280, 768 y 375 px coincide con DESIGN.md en ambos temas y ambos idiomas.
 
-- [ ] **T9 Página 404 y controles de calidad** · RF15, RF19, RF21
+- [x] **T9 Página 404 y controles de calidad** · RF15, RF19, RF21
   Tests primero (404 con enlaces a ambas homes, sin `<script src>` y un solo script inline, sin peticiones externas); luego `404.astro`.
   Hecho cuando: `quality.spec` pasa completo en ambos proyectos.
 

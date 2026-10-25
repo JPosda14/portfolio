@@ -13,9 +13,11 @@ interface Props {
   alternates: Alternates;
   title?: string;
   description?: string;
+  /** For pages that must not be indexed (404): adds robots noindex and skips canonical/hreflang. */
+  noindex?: boolean;
 }
 
-const { locale, alternates, title, description } = Astro.props;
+const { locale, alternates, title, description, noindex = false } = Astro.props;
 const ui = getUi(locale);
 const site = Astro.site ?? new URL("https://juanposada.dev");
 const absolute = (path: string) => new URL(path, site).href;
@@ -29,9 +31,17 @@ const absolute = (path: string) => new URL(path, site).href;
     <ThemeScript />
     <title>{title ?? ui.meta.title}</title>
     <meta name="description" content={description ?? ui.meta.description} />
-    <link rel="canonical" href={absolute(alternates[locale])} />
-    {locales.map((code) => <link rel="alternate" hreflang={code} href={absolute(alternates[code])} />)}
-    <link rel="alternate" hreflang="x-default" href={absolute(alternates[defaultLocale])} />
+    {
+      noindex ? (
+        <meta name="robots" content="noindex" />
+      ) : (
+        <>
+          <link rel="canonical" href={absolute(alternates[locale])} />
+          {locales.map((code) => <link rel="alternate" hreflang={code} href={absolute(alternates[code])} />)}
+          <link rel="alternate" hreflang="x-default" href={absolute(alternates[defaultLocale])} />
+        </>
+      )
+    }
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <Fonts />
   </head>

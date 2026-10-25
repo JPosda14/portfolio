@@ -1,0 +1,75 @@
+---
+// Static hosts serve a single 404 for every route, so it speaks both languages.
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getUi } from "../i18n/index.ts";
+
+const en = getUi("en");
+const es = getUi("es");
+---
+
+<BaseLayout locale="en" alternates={{ en: "/", es: "/es/" }} title={`${en.notFound.title} · ${es.notFound.title}`} noindex>
+  <main id="main">
+    <p class="code" aria-hidden="true">404</p>
+    <div class="messages">
+      <section>
+        <h1>{en.notFound.title}</h1>
+        <p>{en.notFound.message}</p>
+        <a href="/">{en.notFound.home}</a>
+      </section>
+      <section lang="es">
+        <h2>{es.notFound.title}</h2>
+        <p>{es.notFound.message}</p>
+        <a href="/es/">{es.notFound.home}</a>
+      </section>
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--space-12) var(--margin);
+  }
+
+  .code {
+    font: 600 var(--text-caps) / 1 var(--font-mono);
+    letter-spacing: 0.08em;
+    color: var(--accent-text);
+  }
+
+  .messages {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr));
+    gap: var(--gutter);
+    margin-top: var(--space-6);
+  }
+
+  section {
+    display: grid;
+    gap: var(--space-4);
+    align-content: start;
+    padding: var(--space-10);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-cell);
+    background: var(--surface);
+  }
+
+  h1,
+  h2 {
+    font-size: var(--text-section);
+  }
+
+  p {
+    color: var(--text-2);
+  }
+
+  a {
+    justify-self: start;
+    padding: var(--space-2) 0;
+    color: var(--accent-text);
+    font-weight: 600;
+    text-underline-offset: 4px;
+  }
+</style>
