@@ -14,7 +14,7 @@ Plan aprobado. Una tarea por vez con `/sdd-implement 001-base Tn`; tests primero
   Test unitario primero (`node --test`), luego la integración `astro:build:done` y el helper que resalta el marcador en desarrollo.
   Hecho cuando: el test pasa y añadir `[PENDIENTE]` temporalmente a la home hace fallar `npm run build` con la ruta de la página.
 
-- [ ] **T4 Textos de interfaz y utilidades de idioma** · RF5, RF6
+- [x] **T4 Textos de interfaz y utilidades de idioma** · RF5, RF6
   `src/content/ui/en.ts` y `es.ts` (nav, pie, skip link, tema, idioma, meta, 404, ids de anclas), `src/i18n/index.ts`.
   Hecho cuando: borrar una clave de `es.ts` hace fallar `npm run check` con el nombre de la clave, y restaurarla lo deja en verde.
 
