@@ -1,0 +1,75 @@
+---
+import { Picture } from "astro:assets";
+import Text from "../Text.astro";
+import Cell from "./Cell.astro";
+import portrait from "../../assets/juan-posada.webp";
+import { getHome, type Locale } from "../../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { photo } = getHome(Astro.props.locale);
+---
+
+<Cell area="photo" label={photo.label} class="photo">
+  <Picture
+    src={portrait}
+    alt={photo.alt}
+    formats={["avif", "webp"]}
+    fallbackFormat="webp"
+    widths={[192, 384]}
+    sizes="12rem"
+    loading="eager"
+    class="portrait"
+  />
+  <dl class="facts">
+    <div>
+      <dt><Text value={photo.locationLabel} /></dt>
+      <dd><Text value={photo.location} /></dd>
+    </div>
+    <div>
+      <dt><Text value={photo.languagesLabel} /></dt>
+      <dd><Text value={photo.languages} /></dd>
+    </div>
+  </dl>
+</Cell>
+
+<style>
+  .portrait {
+    width: 12rem;
+    max-width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    object-fit: cover;
+    object-position: 50% 30%;
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-cell);
+    background: var(--surface-2);
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: auto;
+  }
+
+  dt {
+    font: 600 var(--text-caps) / 1.3 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  dd {
+    margin: var(--space-1) 0 0;
+    font: 400 var(--text-card) / 1.25 var(--font-display);
+    font-variant-numeric: lining-nums;
+  }
+
+  @media (max-width: 639px) {
+    .portrait {
+      width: 9rem;
+    }
+  }
+</style>

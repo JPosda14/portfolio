@@ -66,6 +66,42 @@ test.describe("hero content", () => {
   }
 });
 
+const photos = [
+  { path: "/", alt: /^Portrait of Juan Andrés Posada/, location: "Armenia, Quindío · Colombia", languages: "Spanish (native) · English B1" },
+  { path: "/es/", alt: /^Retrato de Juan Andrés Posada/, location: "Armenia, Quindío · Colombia", languages: "Español nativo · Inglés B1" },
+] as const;
+
+test.describe("photo cell", () => {
+  for (const p of photos) {
+    test(`${p.path} shows a described photo with location and languages`, async ({ page }) => {
+      await page.goto(p.path);
+      const cell = page.locator('[data-cell="photo"]');
+      const img = cell.getByRole("img", { name: p.alt });
+      await expect(img).toBeVisible();
+      await expect(cell).toContainText(p.location);
+      await expect(cell).toContainText(p.languages);
+    });
+  }
+
+  test("serves the photo in AVIF and WebP, with dimensions and without lazy loading", async ({ page }) => {
+    await page.goto("/");
+    const picture = page.locator('[data-cell="photo"] picture');
+    await expect(picture.locator('source[type="image/avif"]')).toHaveCount(1);
+    await expect(picture.locator('source[type="image/webp"]')).toHaveCount(1);
+    const img = picture.locator("img");
+    await expect(img).toHaveAttribute("width", /^\d+$/);
+    await expect(img).toHaveAttribute("height", /^\d+$/);
+    await expect(img).not.toHaveAttribute("loading", "lazy");
+    expect(await img.evaluate((node: HTMLImageElement) => node.complete && node.naturalWidth > 0)).toBe(true);
+  });
+
+  test("shows the photo as a square", async ({ page }) => {
+    await page.goto("/");
+    const rect = await page.locator('[data-cell="photo"] img').boundingBox();
+    expect(rect && Math.abs(rect.width - rect.height)).toBeLessThan(1);
+  });
+});
+
 test.describe("calls to action", () => {
   for (const c of calls) {
     test(`${c.path} shows the three calls to action in the hero`, async ({ page }) => {

@@ -4,5 +4,12 @@ import { Font } from "astro:assets";
 ---
 
 <Font cssVariable="--font-body" preload={[{ weight: 400, style: "normal" }]} />
-<Font cssVariable="--font-display" preload={[{ weight: 400, style: "normal" }]} />
+<!-- The italic is preloaded too: the hero role uses it above the fold and swapping it late shifts the layout. -->
+<Font
+  cssVariable="--font-display"
+  preload={[
+    { weight: 400, style: "normal" },
+    { weight: 400, style: "italic" },
+  ]}
+/>
 <Font cssVariable="--font-mono" />

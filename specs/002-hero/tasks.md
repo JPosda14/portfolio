@@ -18,7 +18,7 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   Tests de estado, `h1`, rol con `em`, subtítulo, ancla de proyectos, `href` del CV por idioma y CTA dentro de la primera pantalla en 375 × 812 primero; luego `HeroCell.astro`.
   Hecho cuando: los tests pasan y la revisión en navegador (1280 / 768 / 375, claro y oscuro, EN y ES) coincide con `docs/DESIGN.md`.
 
-- [ ] **T5 Celda de foto** · RF10, RF11
+- [x] **T5 Celda de foto** · RF10, RF11
   Tests de `alt`, `<source>` AVIF y WebP, `width`/`height`, sin `loading="lazy"`, ubicación e idiomas primero; luego copiar la foto a `src/assets/` y `PhotoCell.astro` con `<Picture>`.
   Hecho cuando: los tests pasan, CLS = 0 en Lighthouse y la foto se ve bien recortada en los tres anchos.
 

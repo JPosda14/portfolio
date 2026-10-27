@@ -2,6 +2,8 @@ import { defineConfig, devices } from "@playwright/test";
 
 // Not 4321, so tests never reuse a running `astro dev` server: they always hit the production build.
 const PORT = 4322;
+// Explicit IPv4: on Windows "localhost" sometimes resolves to ::1 and the preview server refuses the connection.
+const HOST = "127.0.0.1";
 
 export default defineConfig({
   testDir: "./tests/e2e",
@@ -10,7 +12,7 @@ export default defineConfig({
   retries: process.env["CI"] ? 1 : 0,
   reporter: "list",
   use: {
-    baseURL: `http://localhost:${PORT}`,
+    baseURL: `http://${HOST}:${PORT}`,
     trace: "retain-on-failure",
   },
   projects: [
@@ -24,8 +26,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run build && npm run preview -- --port ${PORT}`,
-    url: `http://localhost:${PORT}/`,
+    command: `npm run build && npm run preview -- --host ${HOST} --port ${PORT}`,
+    url: `http://${HOST}:${PORT}/`,
     reuseExistingServer: !process.env["CI"],
     timeout: 120_000,
   },

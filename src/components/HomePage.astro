@@ -1,9 +1,9 @@
 ---
 // Home shared by both languages. More bento cells arrive in specs 003–005; their anchors exist already.
-import Cell from "./bento/Cell.astro";
 import HeroCell from "./bento/HeroCell.astro";
+import PhotoCell from "./bento/PhotoCell.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getHome, getUi, type Locale } from "../i18n/index.ts";
+import { getUi, type Locale } from "../i18n/index.ts";
 
 interface Props {
   locale: Locale;
@@ -11,14 +11,13 @@ interface Props {
 
 const { locale } = Astro.props;
 const ui = getUi(locale);
-const home = getHome(locale);
 ---
 
 <BaseLayout locale={locale} alternates={{ en: "/", es: "/es/" }}>
   <main id="main">
     <div class="bento">
       <HeroCell locale={locale} />
-      <Cell area="photo" label={home.photo.label} />
+      <PhotoCell locale={locale} />
     </div>
     <section id={ui.anchors.projects}></section>
     <section id={ui.anchors.experience}></section>
