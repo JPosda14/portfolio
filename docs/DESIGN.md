@@ -36,7 +36,7 @@ Todas autoalojadas en WOFF2 con `font-display: swap` y subconjunto latino.
 | --- | --- | --- | --- |
 | Display (nombre en hero) | Playfair Display 400 | 72 → 44 px, `line-height` 1.1, `-0.02em` | |
 | Título de sección / contacto | Playfair Display 400 | 48 → 32 px | Cursiva en la palabra clave ("*together.*") |
-| Título de tarjeta | Playfair Display 500 | 28 → 24 px | |
+| Título de tarjeta | Playfair Display 400 | 28 → 24 px | Solo se carga el peso 400 (rendimiento) |
 | Rol / cursivas | Playfair Display 400 italic | 24 → 20 px | Palabra clave en `--accent-text` |
 | Texto grande | Geist 400 | 18 px / 1.6 | Subtítulo del hero |
 | Texto | Geist 400 | 15 px / 1.6 | |

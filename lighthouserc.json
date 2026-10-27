@@ -2,7 +2,12 @@
   "ci": {
     "collect": {
       "staticDistDir": "./dist",
-      "url": ["http://localhost/", "http://localhost/es/"],
+      "url": [
+        "http://localhost/",
+        "http://localhost/es/",
+        "http://localhost/projects/colchones-posada/",
+        "http://localhost/es/proyectos/university-capstone/"
+      ],
       "numberOfRuns": 3
     },
     "assert": {

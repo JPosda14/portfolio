@@ -19,7 +19,8 @@ export default defineConfig({
       name: "Playfair Display",
       cssVariable: "--font-display",
       provider: fontProviders.fontsource(),
-      weights: [400, 500],
+      // Only 400 (normal + italic): every serif heading uses it, and each extra weight delays the hero LCP.
+      weights: [400],
       styles: ["normal", "italic"],
       subsets: ["latin"],
       fallbacks: ["Georgia", "serif"],

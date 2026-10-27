@@ -34,7 +34,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   Test del sitemap primero; luego `serialize` en la config.
   Hecho cuando: el sitemap lista los 4 casos con sus `xhtml:link` en y es.
 
-- [ ] **T9 Cierre** · RF16
+- [x] **T9 Cierre** · RF16 (check 0 errores, 34 unit, 210 e2e; Lighthouse 99–100 × 4 en homes y casos, LCP ~1.81 s, CLS 0, 138 KB; capturas de tarjetas en lazy y Playfair solo en peso 400 para recuperar el LCP)
   `a11y.spec` y Lighthouse CI ampliados a un caso por idioma; `npm run check && npm test`, `npm run lhci`, revisión final; README con cómo agregar o editar un proyecto.
   Hecho cuando: todo en verde, Lighthouse ≥ 95 × 4 en home y casos, axe sin infracciones.
 

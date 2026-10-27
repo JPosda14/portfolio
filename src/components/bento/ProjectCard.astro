@@ -39,7 +39,7 @@ const rows = [
     fallbackFormat="webp"
     widths={[480, 800, 1200]}
     sizes="(min-width: 1024px) 40vw, 90vw"
-    loading={position === 1 ? "eager" : "lazy"}
+    loading="lazy"
     class="shot"
     style={`view-transition-name: ${names.shot}`}
   />
@@ -138,7 +138,6 @@ const rows = [
 
   h3 {
     font-size: var(--text-card);
-    font-weight: 500;
   }
 
   h3 a {
