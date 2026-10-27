@@ -34,7 +34,7 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   Instalar `unpdf`, `cv.test` primero (sin móvil colombiano, contiene el nombre); copiar los PDF a `public/cv/`; test e2e de descarga (200, `application/pdf`).
   Hecho cuando: `cv.test` y el test de descarga pasan y el build vuelve a verde.
 
-- [ ] **T9 Cierre** · RF14
+- [x] **T9 Cierre** · RF14 (check 0 errores, 21 unit, 130 e2e, Lighthouse 100 × 4 en `/` y `/es/`, LCP ~1.66 s, CLS 0, 125 KB)
   `npm run check && npm test`, `npm run lhci` y revisión final en navegador; ajustes si algo baja de 95.
   Hecho cuando: todo en verde, Lighthouse ≥ 95 × 4 en `/` y `/es/`, axe sin infracciones.
 
