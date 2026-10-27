@@ -30,7 +30,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   Test de `view-transition-name` coincidente y de la regla bajo reduced-motion primero; luego CSS.
   Hecho cuando: el test pasa y en el navegador la captura y el título se animan al entrar al caso.
 
-- [ ] **T8 Sitemap con rutas traducidas** · RF14
+- [x] **T8 Sitemap con rutas traducidas** · RF14
   Test del sitemap primero; luego `serialize` en la config.
   Hecho cuando: el sitemap lista los 4 casos con sus `xhtml:link` en y es.
 

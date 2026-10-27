@@ -97,6 +97,21 @@ for (const c of cases) {
   });
 }
 
+test("the sitemap lists every case with its English and Spanish versions", async ({ request }) => {
+  const sitemap = await (await request.get("/sitemap-0.xml")).text();
+  const blocks = [...sitemap.matchAll(/<url>([\s\S]*?)<\/url>/g)].map(([, block]) => block ?? "");
+  for (const slug of ["colchones-posada", "university-capstone"]) {
+    const en = `${SITE}/projects/${slug}/`;
+    const es = `${SITE}/es/proyectos/${slug}/`;
+    for (const loc of [en, es]) {
+      const block = blocks.find((b) => b.includes(`<loc>${loc}</loc>`));
+      expect(block, `${loc} is in the sitemap`).toBeDefined();
+      expect(block).toContain(`hreflang="en" href="${en}"`);
+      expect(block).toContain(`hreflang="es" href="${es}"`);
+    }
+  }
+});
+
 test("case pages have no horizontal overflow on a phone", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   for (const c of cases) {

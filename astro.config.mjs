@@ -49,6 +49,18 @@ export default defineConfig({
         defaultLocale: "en",
         locales: { en: "en", es: "es" },
       },
+      // Case pages have translated prefixes (/projects/ ↔ /es/proyectos/), which the i18n option cannot pair.
+      serialize(item) {
+        const match = item.url.match(/^(https?:\/\/[^/]+)\/(?:projects|es\/proyectos)\/([^/]+)\/$/);
+        if (match) {
+          const [, origin, slug] = match;
+          item.links = [
+            { lang: "en", url: `${origin}/projects/${slug}/` },
+            { lang: "es", url: `${origin}/es/proyectos/${slug}/` },
+          ];
+        }
+        return item;
+      },
     }),
     // ALLOW_PENDING is only set by `npm run build:test`; publishing (`npm run build`) blocks [PENDIENTE].
     pendingGuard({ allowPending: process.env["ALLOW_PENDING"] === "1" }),
