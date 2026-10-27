@@ -76,6 +76,13 @@ button {
   color: var(--on-accent);
 }
 
+/* Cross-document view transitions (card → case), CSS only. Browsers without support just navigate. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

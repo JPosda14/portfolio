@@ -26,7 +26,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   Tests e2e primero (metadatos, hreflang, selector, secciones, enlaces, siguiente proyecto, imágenes); luego `CasePage.astro` y las dos rutas.
   Hecho cuando: los tests pasan y los 4 casos se ven bien en los 3 anchos y ambos temas.
 
-- [ ] **T7 Transición tarjeta → caso** · RF13
+- [x] **T7 Transición tarjeta → caso** · RF13 (la animación en sí no se pudo capturar en una imagen: dura ~250 ms)
   Test de `view-transition-name` coincidente y de la regla bajo reduced-motion primero; luego CSS.
   Hecho cuando: el test pasa y en el navegador la captura y el título se animan al entrar al caso.
 

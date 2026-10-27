@@ -75,6 +75,11 @@ export function projectAreas(count: number): ProjectAreas {
   };
 }
 
+/** view-transition-name values shared by a project's card and its case page. */
+export function transitionNames(slug: string): { shot: string; title: string } {
+  return { shot: `project-${slug}-shot`, title: `project-${slug}-title` };
+}
+
 /** Path of a case page in each language: /projects/<slug>/ and /es/proyectos/<slug>/. */
 export function casePaths(slug: string): Record<Locale, string> {
   return { en: `/projects/${slug}/`, es: `/es/proyectos/${slug}/` };

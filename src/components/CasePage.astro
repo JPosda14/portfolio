@@ -8,7 +8,7 @@ import Text from "./Text.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getUi, type Locale } from "../i18n/index.ts";
 import { getProjects, type Project } from "../lib/load-projects.ts";
-import { casePaths } from "../lib/projects.ts";
+import { casePaths, transitionNames } from "../lib/projects.ts";
 
 interface Props {
   locale: Locale;
@@ -29,6 +29,7 @@ const label = `SYS_${String(position + 1).padStart(2, "0")} // ${kind}`.toUpperC
 const address = data.links.live ? new URL(data.links.live).host : (data.links.repo ?? "").replace(/^https?:\/\//, "");
 const { Content } = await render(entry);
 const hasStory = Boolean(entry.body?.trim());
+const names = transitionNames(slug);
 
 const facts = [
   { term: ui.case.year, value: String(data.year) },
@@ -49,7 +50,7 @@ const story = [
 
     <header class="intro">
       <p class="label">{label}</p>
-      <h1><Text value={data.title} /></h1>
+      <h1 style={`view-transition-name: ${names.title}`}><Text value={data.title} /></h1>
       <p class="summary"><Text value={data.summary} /></p>
     </header>
 
@@ -63,6 +64,7 @@ const story = [
         widths={[640, 1024, 1600]}
         sizes="(min-width: 1280px) 1184px, 94vw"
         loading="eager"
+        style={`view-transition-name: ${names.shot}`}
       />
     </div>
 
