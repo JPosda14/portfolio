@@ -6,7 +6,7 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   Test de paridad de claves de home en `i18n.test` primero; luego `src/content/home/{en,es}.ts` (estado, nombre, rol en dos partes, subtítulo, CTAs, alt de la foto, ubicación, idiomas, etiqueta de celda) y `getHome(locale)`; texto "(opens in a new tab)" / "(se abre en una pestaña nueva)" en `ui`.
   Hecho cuando: `npm run check` pasa y quitar una clave de `home/es.ts` lo hace fallar.
 
-- [ ] **T2 Cuadrícula bento y celda genérica** · RF1, RF2
+- [x] **T2 Cuadrícula bento y celda genérica** · RF1, RF2
   Tests de layout en `hero.spec` (1280 / 768 / 375 px y orden del DOM) primero; luego `Cell.astro` y la cuadrícula en `HomePage` con dos celdas vacías con su cabecera.
   Hecho cuando: los tests de layout pasan en escritorio y móvil.
 

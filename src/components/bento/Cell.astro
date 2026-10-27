@@ -1,0 +1,61 @@
+---
+// A bento cell. It only declares its grid area; the page decides the layout.
+interface Props {
+  /** Grid area name, also exposed as data-cell. */
+  area: string;
+  /** Monospace header shown at the top, e.g. "EXPERIENCE // TIMELINE". Names the region. */
+  label: string;
+  /** Optional secondary header on the right; must be real information. */
+  meta?: string | undefined;
+  /** Extra classes for the cell layout. */
+  class?: string | undefined;
+}
+
+const { area, label, meta, class: className } = Astro.props;
+const labelId = `cell-${area}-label`;
+---
+
+<section class:list={["cell", className]} data-cell={area} style={`grid-area: ${area}`} aria-labelledby={labelId}>
+  <header class="cell-header">
+    <p id={labelId} class="cell-label">{label}</p>
+    {meta && <p class="cell-meta">{meta}</p>}
+  </header>
+  <slot />
+</section>
+
+<style>
+  .cell {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    min-width: 0;
+    padding: var(--space-10);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-cell);
+    background: var(--surface);
+  }
+
+  .cell-header {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .cell-label,
+  .cell-meta {
+    font: 600 var(--text-caps) / 1.3 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  .cell-label {
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 639px) {
+    .cell {
+      padding: var(--space-6);
+    }
+  }
+</style>

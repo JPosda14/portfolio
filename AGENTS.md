@@ -18,6 +18,7 @@ Landing page personal bilingüe (EN/ES) de un Ingeniero de Software full‑stack
 ## Trampas conocidas
 - Windows: los MCP con npx se registran con `cmd /c npx ...`. PowerShell 5.1 lee archivos sin BOM como ANSI: edita con las herramientas de archivo, no con `Get-Content`/`Set-Content`.
 - En `.claude/commands/` los argumentos posicionales empiezan en `$0`.
+- Mensajes de commit con comillas dobles: escribirlos en un archivo y usar `git commit -F`, porque PowerShell 5.1 los parte.
 - Orden del DOM = orden visual del bento: usa `grid-template-areas`, nunca `order` ni `grid-auto-flow: dense`.
 - El único JS permitido es el script inline del tema; cualquier otro necesita aprobación.
 - `[PENDIENTE]` marca contenido faltante: el build de producción debe fallar si queda alguno.

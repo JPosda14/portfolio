@@ -1,7 +1,8 @@
 ---
-// Home shared by both languages. The bento cells arrive in specs 002–005; the anchors exist already.
+// Home shared by both languages. More bento cells arrive in specs 003–005; their anchors exist already.
+import Cell from "./bento/Cell.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getUi, type Locale } from "../i18n/index.ts";
+import { getHome, getUi, type Locale } from "../i18n/index.ts";
 
 interface Props {
   locale: Locale;
@@ -9,11 +10,17 @@ interface Props {
 
 const { locale } = Astro.props;
 const ui = getUi(locale);
+const home = getHome(locale);
 ---
 
 <BaseLayout locale={locale} alternates={{ en: "/", es: "/es/" }}>
   <main id="main">
-    <h1>{ui.site.name}</h1>
+    <div class="bento">
+      <Cell area="hero" label={home.hero.label}>
+        <h1>{ui.site.name}</h1>
+      </Cell>
+      <Cell area="photo" label={home.photo.label} />
+    </div>
     <section id={ui.anchors.projects}></section>
     <section id={ui.anchors.experience}></section>
     <section id={ui.anchors.contact}></section>
@@ -25,6 +32,35 @@ const ui = getUi(locale);
     width: 100%;
     max-width: var(--container);
     margin: 0 auto;
-    padding: var(--space-12) var(--margin);
+    padding: var(--space-10) var(--margin) var(--space-12);
+  }
+
+  .bento {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas: "hero hero photo photo";
+    gap: var(--gutter);
+  }
+
+  @media (max-width: 1023px) {
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas:
+        "hero hero"
+        "photo photo";
+    }
+  }
+
+  @media (max-width: 639px) {
+    .bento {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas:
+        "hero"
+        "photo";
+    }
+
+    main {
+      padding-top: var(--space-6);
+    }
   }
 </style>
