@@ -22,7 +22,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   Tests e2e primero (contenido de tarjetas EN/ES, posiciones 1280 / 768 / 375, clic → caso, anclas); luego `ProjectCard.astro`, `ProjectsSection.astro` e integración en la home.
   Hecho cuando: los tests pasan y la revisión en navegador (3 anchos, 2 temas, 2 idiomas) coincide con `docs/DESIGN.md`.
 
-- [ ] **T6 Página de caso** · RF9, RF10, RF11, RF12
+- [x] **T6 Página de caso** · RF9, RF10, RF11 (rama "Código privado" sin test e2e: ningún proyecto actual es privado), RF12
   Tests e2e primero (metadatos, hreflang, selector, secciones, enlaces, siguiente proyecto, imágenes); luego `CasePage.astro` y las dos rutas.
   Hecho cuando: los tests pasan y los 4 casos se ven bien en los 3 anchos y ambos temas.
 

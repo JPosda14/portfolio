@@ -1,9 +1,13 @@
 ---
-// Case study page shared by both languages. Minimal for now (T5 of spec 003); the full page arrives in T6.
+// Case study page shared by both languages.
+import { Picture } from "astro:assets";
+import { render } from "astro:content";
+import ButtonLink from "./ButtonLink.astro";
+import Icon from "./Icon.astro";
 import Text from "./Text.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import type { Locale } from "../i18n/index.ts";
-import type { Project } from "../lib/load-projects.ts";
+import { getUi, type Locale } from "../i18n/index.ts";
+import { getProjects, type Project } from "../lib/load-projects.ts";
 import { casePaths } from "../lib/projects.ts";
 
 interface Props {
@@ -12,11 +16,464 @@ interface Props {
 }
 
 const { locale, project } = Astro.props;
-const { data } = project;
+const ui = getUi(locale);
+const { slug, data, entry } = project;
+
+const projects = await getProjects(locale);
+const position = projects.findIndex((item) => item.slug === slug);
+const next = projects[(position + 1) % projects.length];
+
+const home = locale === "en" ? "/" : `/${locale}/`;
+const kind = ui.projects.kinds[data.kind];
+const label = `SYS_${String(position + 1).padStart(2, "0")} // ${kind}`.toUpperCase();
+const address = data.links.live ? new URL(data.links.live).host : (data.links.repo ?? "").replace(/^https?:\/\//, "");
+const { Content } = await render(entry);
+const hasStory = Boolean(entry.body?.trim());
+
+const facts = [
+  { term: ui.case.year, value: String(data.year) },
+  { term: ui.case.type, value: kind },
+  { term: ui.case.role, value: data.role },
+  { term: ui.case.team, value: data.team },
+];
+const story = [
+  { heading: ui.case.problem, text: data.problem },
+  { heading: ui.case.action, text: data.action },
+  { heading: ui.case.result, text: data.result },
+];
 ---
 
-<BaseLayout locale={locale} alternates={casePaths(project.slug)} title={`${data.title} · Juan Andrés Posada`} description={data.summary}>
+<BaseLayout locale={locale} alternates={casePaths(slug)} title={`${data.title} · ${ui.site.name}`} description={data.summary}>
   <main id="main">
-    <h1><Text value={data.title} /></h1>
+    <a class="back" href={`${home}#${ui.anchors.projects}`}>← {ui.case.back}</a>
+
+    <header class="intro">
+      <p class="label">{label}</p>
+      <h1><Text value={data.title} /></h1>
+      <p class="summary"><Text value={data.summary} /></p>
+    </header>
+
+    <div class="cover">
+      <div class="chrome" aria-hidden="true"><span></span><span></span><span></span><p>{address}</p></div>
+      <Picture
+        src={data.cover.src}
+        alt={data.cover.alt}
+        formats={["avif", "webp"]}
+        fallbackFormat="webp"
+        widths={[640, 1024, 1600]}
+        sizes="(min-width: 1280px) 1184px, 94vw"
+        loading="eager"
+      />
+    </div>
+
+    <dl class="facts">
+      {
+        facts.map(({ term, value }) => (
+          <div>
+            <dt>{term}</dt>
+            <dd>
+              <Text value={value} />
+            </dd>
+          </div>
+        ))
+      }
+      <div class="stack">
+        <dt>{ui.case.stack}</dt>
+        <dd>
+          <ul>{data.stack.map((item) => <li class="chip">{item}</li>)}</ul>
+        </dd>
+      </div>
+    </dl>
+
+    <div class="content">
+      {
+        story.map(({ heading, text }) => (
+          <section>
+            <h2>{heading}</h2>
+            <p>
+              <Text value={text} />
+            </p>
+          </section>
+        ))
+      }
+
+      {
+        hasStory && (
+          <section class="prose">
+            <Content />
+          </section>
+        )
+      }
+
+      <section>
+        <h2>{ui.case.decisions}</h2>
+        <ol class="decisions">
+          {
+            data.decisions.map(({ decision, alternative, reason }) => (
+              <li class="decision">
+                <p class="what">
+                  <Text value={decision} />
+                </p>
+                <dl>
+                  <div>
+                    <dt>{ui.case.alternative}</dt>
+                    <dd>
+                      <Text value={alternative} />
+                    </dd>
+                  </div>
+                  <div>
+                    <dt>{ui.case.reason}</dt>
+                    <dd>
+                      <Text value={reason} />
+                    </dd>
+                  </div>
+                </dl>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      {
+        data.gallery.length > 0 && (
+          <section>
+            <h2>{ui.case.gallery}</h2>
+            <ul class="gallery">
+              {data.gallery.map((image) => (
+                <li>
+                  <Picture
+                    src={image.src}
+                    alt={image.alt}
+                    formats={["avif", "webp"]}
+                    fallbackFormat="webp"
+                    widths={[480, 800, 1200]}
+                    sizes="(min-width: 768px) 45vw, 94vw"
+                    loading="lazy"
+                  />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <section>
+        <h2>{ui.case.links}</h2>
+        <div class="links">
+          {
+            data.links.live && (
+              <ButtonLink href={data.links.live} variant="primary" external newTabLabel={ui.a11y.newTab}>
+                {ui.case.live}
+              </ButtonLink>
+            )
+          }
+          {
+            data.links.repo && (
+              <ButtonLink href={data.links.repo} external newTabLabel={ui.a11y.newTab}>
+                {data.links.repoLabel ?? ui.case.repo}
+              </ButtonLink>
+            )
+          }
+          {data.code === "private" && !data.links.repo && <p class="private">{ui.case.privateCode}</p>}
+        </div>
+      </section>
+    </div>
+
+    {
+      next && next.slug !== slug && (
+        <aside class="next" aria-labelledby="next-label">
+          <p id="next-label" class="label">
+            {ui.case.next}
+          </p>
+          <a href={casePaths(next.slug)[locale]}>
+            <span class="next-title">
+              <Text value={next.data.title} />
+            </span>
+            <span class="next-summary">
+              <Text value={next.data.summary} />
+            </span>
+            <Icon name="arrow-down" size={20} />
+          </a>
+        </aside>
+      )
+    }
   </main>
 </BaseLayout>
+
+<style>
+  main {
+    display: grid;
+    gap: var(--space-10);
+    width: 100%;
+    max-width: var(--container);
+    margin: 0 auto;
+    padding: var(--space-10) var(--margin) var(--space-12);
+  }
+
+  .back {
+    justify-self: start;
+    padding: var(--space-2) 0;
+    font: 600 var(--text-label) / 1 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    text-decoration: none;
+  }
+
+  .back:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .intro {
+    display: grid;
+    gap: var(--space-4);
+    max-width: 60rem;
+  }
+
+  .label {
+    font: 600 var(--text-caps) / 1.3 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+  }
+
+  .summary {
+    max-width: 52ch;
+    font-size: var(--text-lg);
+    color: var(--text-2);
+  }
+
+  .cover {
+    overflow: hidden;
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-cell);
+    background: var(--surface-2);
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: var(--space-2) var(--space-4);
+    border-bottom: 1px solid var(--border-2);
+  }
+
+  .chrome span {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--border-2);
+  }
+
+  .chrome p {
+    flex: 1;
+    overflow: hidden;
+    font: 500 var(--text-caps) / 1 var(--font-mono);
+    color: var(--text-2);
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .cover :global(img) {
+    width: 100%;
+    height: auto;
+  }
+
+  .facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+    gap: var(--space-6);
+    padding: var(--space-6) var(--space-10);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-cell);
+    background: var(--surface);
+  }
+
+  .facts .stack {
+    grid-column: 1 / -1;
+  }
+
+  .facts dt,
+  .decision dt {
+    font: 600 var(--text-caps) / 1.3 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  .facts dd {
+    margin: var(--space-1) 0 0;
+    font: 400 var(--text-lg) / 1.4 var(--font-display);
+    font-variant-numeric: lining-nums;
+  }
+
+  .facts ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+
+  .chip {
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-chip);
+    background: var(--surface-2);
+    font: 500 var(--text-label) / 1.4 var(--font-mono);
+    color: var(--text-2);
+  }
+
+  .content {
+    display: grid;
+    gap: var(--space-10);
+    max-width: 48rem;
+  }
+
+  .content section {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  h2 {
+    font-size: var(--text-card);
+  }
+
+  .content p,
+  .prose :global(p) {
+    font-size: var(--text-lg);
+    line-height: 1.7;
+  }
+
+  .decisions {
+    display: grid;
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .decision {
+    display: grid;
+    gap: var(--space-4);
+    padding: var(--space-6);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    background: var(--surface);
+  }
+
+  .decision .what {
+    font-weight: 600;
+  }
+
+  .decision dl {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .decision dl div {
+    display: grid;
+    grid-template-columns: 8rem 1fr;
+    gap: var(--space-4);
+  }
+
+  .decision dd {
+    margin: 0;
+    color: var(--text-2);
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+    gap: var(--gutter);
+    padding: 0;
+    list-style: none;
+  }
+
+  .gallery :global(img) {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-control);
+    background: var(--surface-2);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .private {
+    font: 500 var(--text-label) / 2.75rem var(--font-mono);
+    color: var(--text-2);
+  }
+
+  .next {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .next a {
+    position: relative;
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-10);
+    padding-right: 4.5rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-cell);
+    background: var(--surface);
+    text-decoration: none;
+    transition:
+      border-color var(--duration) var(--ease),
+      transform var(--duration) var(--ease);
+  }
+
+  .next a:hover {
+    border-color: var(--accent-text);
+    transform: translateY(-1px);
+  }
+
+  .next :global(svg) {
+    position: absolute;
+    top: 50%;
+    right: var(--space-10);
+    color: var(--accent-text);
+    transform: translateY(-50%) rotate(-90deg);
+  }
+
+  .next-title {
+    font: 400 var(--text-section) / 1.1 var(--font-display);
+  }
+
+  .next-summary {
+    color: var(--text-2);
+  }
+
+  @media (max-width: 639px) {
+    main {
+      gap: var(--space-6);
+      padding-top: var(--space-6);
+    }
+
+    .facts,
+    .next a {
+      padding: var(--space-6);
+      padding-right: var(--space-6);
+    }
+
+    .next :global(svg) {
+      display: none;
+    }
+
+    .decision dl div {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+</style>
