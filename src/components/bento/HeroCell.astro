@@ -1,0 +1,83 @@
+---
+import ButtonLink from "../ButtonLink.astro";
+import Text from "../Text.astro";
+import Cell from "./Cell.astro";
+import { links } from "../../content/links.ts";
+import { getHome, getUi, type Locale } from "../../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const { hero } = getHome(locale);
+---
+
+<Cell area="hero" label={hero.label} class="hero">
+  <p class="status" data-status><span class="dot" aria-hidden="true"></span><Text value={hero.status} /></p>
+
+  <div class="intro">
+    <h1>{ui.site.name}</h1>
+    <p class="role" data-role><Text value={hero.role.lead} /> <em><Text value={hero.role.highlight} /></em></p>
+    <p class="subtitle"><Text value={hero.subtitle} /></p>
+  </div>
+
+  <div class="ctas">
+    <ButtonLink href={`#${ui.anchors.projects}`} variant="primary" icon="arrow-down">{hero.cta.work}</ButtonLink>
+    <ButtonLink href={hero.cvFile} icon="download" download>{hero.cta.cv}</ButtonLink>
+    <ButtonLink href={links.calCom} icon="calendar" external newTabLabel={ui.a11y.newTab}>{hero.cta.call}</ButtonLink>
+  </div>
+</Cell>
+
+<style>
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font: 500 var(--text-label) / 1.4 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  .dot {
+    flex: none;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: var(--radius-full);
+    background: var(--ok);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--ok) 20%, transparent);
+  }
+
+  .intro {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+  }
+
+  .role {
+    font: 400 var(--text-role) / 1.3 var(--font-display);
+    font-style: italic;
+  }
+
+  .role em {
+    color: var(--accent-text);
+  }
+
+  .subtitle {
+    max-width: 46ch;
+    font-size: var(--text-lg);
+    color: var(--text-2);
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-top: auto;
+  }
+</style>

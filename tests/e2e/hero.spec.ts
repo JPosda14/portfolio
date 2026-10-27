@@ -13,6 +13,59 @@ const calls = [
   { path: "/es/", work: "Ver mi trabajo", cv: "Descargar CV", call: "Agendar llamada", newTab: "se abre en una pestaña nueva" },
 ] as const;
 
+const heroes = [
+  {
+    path: "/",
+    status: ["Available", "Remote", "Armenia, CO", "UTC‑5"],
+    highlight: "AI focus",
+    subtitle: /fast web products and integrate AI/,
+    work: { name: "See my work", href: "#projects" },
+    cv: { name: "Download CV", href: "/cv/juan-posada-cv-en.pdf" },
+  },
+  {
+    path: "/es/",
+    status: ["Disponible", "Remoto", "Armenia, CO", "UTC‑5"],
+    highlight: "enfoque en IA",
+    subtitle: /productos web rápidos y les integro IA/,
+    work: { name: "Ver mi trabajo", href: "#proyectos" },
+    cv: { name: "Descargar CV", href: "/cv/juan-posada-cv-es.pdf" },
+  },
+] as const;
+
+test.describe("hero content", () => {
+  for (const h of heroes) {
+    test(`${h.path} shows availability, name, role and subtitle`, async ({ page }) => {
+      await page.goto(h.path);
+      const hero = page.locator('[data-cell="hero"]');
+      for (const part of h.status) await expect(hero.locator("[data-status]")).toContainText(part);
+      await expect(hero.getByRole("heading", { level: 1 })).toHaveText("Juan Andrés Posada");
+      const highlight = hero.locator("[data-role] em");
+      await expect(highlight).toHaveText(h.highlight);
+      await expect(highlight).toHaveCSS("font-style", "italic");
+      await expect(hero.getByText(h.subtitle)).toBeVisible();
+    });
+
+    test(`${h.path} links "see my work" to the projects and the CV to its own language`, async ({ page }) => {
+      await page.goto(h.path);
+      const hero = page.locator('[data-cell="hero"]');
+      await expect(hero.getByRole("link", { name: h.work.name })).toHaveAttribute("href", h.work.href);
+      await expect(hero.getByRole("link", { name: h.cv.name })).toHaveAttribute("href", h.cv.href);
+    });
+  }
+
+  for (const path of ["/", "/es/"]) {
+    test(`on a 375×812 phone ${path} shows the name, role and main call to action without scrolling`, async ({ page }) => {
+      await page.setViewportSize({ width: 375, height: 812 });
+      await page.goto(path);
+      const hero = page.locator('[data-cell="hero"]');
+      for (const element of [hero.getByRole("heading", { level: 1 }), hero.locator("[data-role]"), hero.locator(".primary")]) {
+        const rect = await element.boundingBox();
+        expect(rect && rect.y + rect.height).toBeLessThanOrEqual(812);
+      }
+    });
+  }
+});
+
 test.describe("calls to action", () => {
   for (const c of calls) {
     test(`${c.path} shows the three calls to action in the hero`, async ({ page }) => {

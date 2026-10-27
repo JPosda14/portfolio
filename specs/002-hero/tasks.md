@@ -14,7 +14,7 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   Tests de los tres enlaces (nombres, Cal.com con `target`, `rel` y nombre accesible con "new tab" / "pestaña nueva") primero; luego `ButtonLink.astro` (primario, secundario, icono, externo).
   Hecho cuando: los tests de enlaces pasan en EN y ES.
 
-- [ ] **T4 Celda hero** · RF3, RF4, RF6, RF7, RF9
+- [x] **T4 Celda hero** · RF3, RF4, RF6, RF7 (enlace; la descarga real en T8), RF9
   Tests de estado, `h1`, rol con `em`, subtítulo, ancla de proyectos, `href` del CV por idioma y CTA dentro de la primera pantalla en 375 × 812 primero; luego `HeroCell.astro`.
   Hecho cuando: los tests pasan y la revisión en navegador (1280 / 768 / 375, claro y oscuro, EN y ES) coincide con `docs/DESIGN.md`.
 
