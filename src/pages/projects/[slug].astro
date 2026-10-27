@@ -1,0 +1,12 @@
+---
+import type { GetStaticPaths } from "astro";
+import CasePage from "../../components/CasePage.astro";
+import { getProjects, type Project } from "../../lib/load-projects.ts";
+
+export const getStaticPaths = (async () =>
+  (await getProjects("en")).map((project) => ({ params: { slug: project.slug }, props: { project } }))) satisfies GetStaticPaths;
+
+const { project } = Astro.props as { project: Project };
+---
+
+<CasePage locale="en" project={project} />

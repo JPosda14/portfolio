@@ -1,0 +1,235 @@
+---
+import { Picture } from "astro:assets";
+import Text from "../Text.astro";
+import Cell from "./Cell.astro";
+import { getUi, type Locale } from "../../i18n/index.ts";
+import type { Project } from "../../lib/load-projects.ts";
+import { casePaths } from "../../lib/projects.ts";
+
+interface Props {
+  locale: Locale;
+  project: Project;
+  /** 1-based position; also the grid area (p1…p5). */
+  position: number;
+}
+
+const { locale, project, position } = Astro.props;
+const ui = getUi(locale);
+const { slug, data } = project;
+const href = casePaths(slug)[locale];
+const titleId = `project-${slug}-title`;
+const label = `SYS_${String(position).padStart(2, "0")} // ${ui.projects.kinds[data.kind]}`.toUpperCase();
+const address = data.links.live ? new URL(data.links.live).host : (data.links.repo ?? "").replace(/^https?:\/\//, "");
+const rows = [
+  { term: ui.projects.problem, text: data.problem },
+  { term: ui.projects.action, text: data.action },
+  { term: ui.projects.result, text: data.result },
+];
+---
+
+<Cell area={`p${position}`} as="article" label={label} meta={data.links.live ? ui.projects.live.toUpperCase() : undefined} labelledby={titleId} class="project">
+  <div class="frame" aria-hidden="true">
+    <div class="chrome"><span></span><span></span><span></span><p>{address}</p></div>
+  </div>
+  <Picture
+    src={data.cover.src}
+    alt={data.cover.alt}
+    formats={["avif", "webp"]}
+    fallbackFormat="webp"
+    widths={[480, 800, 1200]}
+    sizes="(min-width: 1024px) 40vw, 90vw"
+    loading={position === 1 ? "eager" : "lazy"}
+    class="shot"
+  />
+
+  <div class="heading">
+    <h3 id={titleId}><a href={href}><Text value={data.title} /></a></h3>
+    <p class="meta"><Text value={`${ui.projects.kinds[data.kind]} · ${data.year} · ${data.role}`} /></p>
+  </div>
+
+  <dl class="par">
+    {
+      rows.map(({ term, text }) => (
+        <div>
+          <dt>{term}</dt>
+          <dd>
+            <Text value={text} />
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+
+  <div class="footer">
+    <ul class="stack">{data.stack.map((item) => <li class="chip">{item}</li>)}</ul>
+    <span class="view" aria-hidden="true">{ui.projects.viewCase} →</span>
+  </div>
+</Cell>
+
+<style>
+  /* The card root is rendered by Cell, so scoped selectors do not reach it: target it through :global. */
+  :global(.cell.project) {
+    position: relative;
+    transition:
+      border-color var(--duration) var(--ease),
+      transform var(--duration) var(--ease);
+  }
+
+  :global(.cell.project:hover) {
+    border-color: var(--accent-text);
+    transform: translateY(-1px);
+  }
+
+  :global(.cell.project:has(a:focus-visible)) {
+    outline: 2px solid var(--accent-text);
+    outline-offset: 3px;
+  }
+
+  .frame {
+    margin-bottom: calc(-1 * var(--space-6));
+    border: 1px solid var(--border-2);
+    border-bottom: 0;
+    border-radius: var(--radius-control) var(--radius-control) 0 0;
+    background: var(--surface-2);
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: var(--space-2) var(--space-4);
+  }
+
+  .chrome span {
+    width: 8px;
+    height: 8px;
+    border-radius: var(--radius-full);
+    background: var(--border-2);
+  }
+
+  .chrome p {
+    flex: 1;
+    overflow: hidden;
+    margin-left: var(--space-2);
+    font: 500 var(--text-caps) / 1 var(--font-mono);
+    color: var(--text-2);
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .shot {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    object-position: top;
+    border: 1px solid var(--border-2);
+    border-radius: 0 0 var(--radius-control) var(--radius-control);
+    background: var(--surface-2);
+  }
+
+  .heading {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  h3 {
+    font-size: var(--text-card);
+    font-weight: 500;
+  }
+
+  h3 a {
+    text-decoration: none;
+  }
+
+  h3 a:focus-visible {
+    outline: none;
+  }
+
+  /* The whole card is clickable through the title link, without nesting links. */
+  h3 a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-cell);
+  }
+
+  .meta {
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--text-2);
+  }
+
+  .par {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    background: var(--surface-2);
+  }
+
+  .par div {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: var(--space-4);
+  }
+
+  dt {
+    font: 600 var(--text-caps) / 1.8 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  dd {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    font-size: var(--text-sm);
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+  }
+
+  .footer {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-top: auto;
+  }
+
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+
+  .chip {
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-chip);
+    background: var(--surface-2);
+    font: 500 var(--text-label) / 1.4 var(--font-mono);
+    color: var(--text-2);
+  }
+
+  .view {
+    font: 600 var(--text-label) / 1 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 639px) {
+    .par div {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+</style>

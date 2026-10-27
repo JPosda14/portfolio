@@ -15,7 +15,7 @@
   --accent-text: light-dark(#0047e0, #60a5fa);
   --on-accent: #ffffff;
   --ok: light-dark(#059669, #34d399);
-  --pending: light-dark(#a16207, #facc15);
+  --pending: light-dark(#854d0e, #facc15);
 
   /* Type scale (desktop → mobile via clamp) */
   --text-display: clamp(2.75rem, 1.6rem + 4.6vw, 4.5rem);

@@ -1,5 +1,6 @@
 ---
-// Home shared by both languages. More bento cells arrive in specs 003–005; their anchors exist already.
+// Home shared by both languages. More bento cells arrive in specs 004–005; their anchors exist already.
+import ProjectsSection from "./ProjectsSection.astro";
 import HeroCell from "./bento/HeroCell.astro";
 import PhotoCell from "./bento/PhotoCell.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
@@ -19,7 +20,7 @@ const ui = getUi(locale);
       <HeroCell locale={locale} />
       <PhotoCell locale={locale} />
     </div>
-    <section id={ui.anchors.projects}></section>
+    <ProjectsSection locale={locale} />
     <section id={ui.anchors.experience}></section>
     <section id={ui.anchors.contact}></section>
   </main>

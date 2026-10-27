@@ -9,19 +9,23 @@ interface Props {
   meta?: string | undefined;
   /** Extra classes for the cell layout. */
   class?: string | undefined;
+  /** "article" for self-contained items such as project cards. */
+  as?: "section" | "article";
+  /** Id of the element that names the cell; defaults to the label. */
+  labelledby?: string | undefined;
 }
 
-const { area, label, meta, class: className } = Astro.props;
+const { area, label, meta, class: className, as: Tag = "section", labelledby } = Astro.props;
 const labelId = `cell-${area}-label`;
 ---
 
-<section class:list={["cell", className]} data-cell={area} style={`grid-area: ${area}`} aria-labelledby={labelId}>
+<Tag class:list={["cell", className]} data-cell={area} style={`grid-area: ${area}`} aria-labelledby={labelledby ?? labelId}>
   <header class="cell-header">
     <p id={labelId} class="cell-label">{label}</p>
     {meta && <p class="cell-meta">{meta}</p>}
   </header>
   <slot />
-</section>
+</Tag>
 
 <style>
   .cell {

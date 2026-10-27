@@ -1,0 +1,51 @@
+---
+// The projects part of the bento: its own grid (same columns and gap) so the section anchor has a box to scroll to.
+import ProjectCard from "./bento/ProjectCard.astro";
+import { getUi, type Locale } from "../i18n/index.ts";
+import { getProjects } from "../lib/load-projects.ts";
+import { projectAreas } from "../lib/projects.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const projects = await getProjects(locale);
+const areas = projectAreas(projects.length);
+---
+
+<section
+  id={ui.anchors.projects}
+  class="projects"
+  aria-labelledby="projects-heading"
+  style={`--areas-desktop: ${areas.desktop}; --areas-tablet: ${areas.tablet}; --areas-mobile: ${areas.mobile};`}
+>
+  <h2 id="projects-heading" class="visually-hidden">{ui.projects.heading}</h2>
+  {projects.map((project, index) => <ProjectCard locale={locale} project={project} position={index + 1} />)}
+</section>
+
+<style>
+  .projects {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas: var(--areas-desktop);
+    gap: var(--gutter);
+    margin-top: var(--gutter);
+    scroll-margin-top: var(--space-6);
+  }
+
+  @media (max-width: 1023px) {
+    .projects {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-template-areas: var(--areas-tablet);
+    }
+  }
+
+  @media (max-width: 639px) {
+    .projects {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-areas: var(--areas-mobile);
+    }
+  }
+</style>

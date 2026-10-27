@@ -1,0 +1,22 @@
+---
+// Case study page shared by both languages. Minimal for now (T5 of spec 003); the full page arrives in T6.
+import Text from "./Text.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import type { Locale } from "../i18n/index.ts";
+import type { Project } from "../lib/load-projects.ts";
+import { casePaths } from "../lib/projects.ts";
+
+interface Props {
+  locale: Locale;
+  project: Project;
+}
+
+const { locale, project } = Astro.props;
+const { data } = project;
+---
+
+<BaseLayout locale={locale} alternates={casePaths(project.slug)} title={`${data.title} · Juan Andrés Posada`} description={data.summary}>
+  <main id="main">
+    <h1><Text value={data.title} /></h1>
+  </main>
+</BaseLayout>

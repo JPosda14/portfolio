@@ -18,7 +18,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   `projects.test` primero (`checkProjectSet` y `projectAreas` para 2–5); luego `src/lib/projects.ts`.
   Hecho cuando: los tests unitarios pasan.
 
-- [ ] **T5 Tarjeta y sección de proyectos** · RF5, RF6, RF7, RF8
+- [x] **T5 Tarjeta y sección de proyectos** · RF5, RF6, RF7, RF8 (se adelantaron rutas mínimas de caso para que la guarda de enlaces no bloquee; T6 las completa)
   Tests e2e primero (contenido de tarjetas EN/ES, posiciones 1280 / 768 / 375, clic → caso, anclas); luego `ProjectCard.astro`, `ProjectsSection.astro` e integración en la home.
   Hecho cuando: los tests pasan y la revisión en navegador (3 anchos, 2 temas, 2 idiomas) coincide con `docs/DESIGN.md`.
 

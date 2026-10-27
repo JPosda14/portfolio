@@ -22,7 +22,7 @@ Se definen como custom properties con `light-dark()`; oscuro es el modo por defe
 | `--accent-text` | `#60A5FA` | `#0047E0` | Enlaces, cursivas destacadas, etiquetas activas |
 | `--on-accent` | `#FFFFFF` | `#FFFFFF` | Texto sobre `--accent` |
 | `--ok` | `#34D399` | `#059669` | Punto de "Disponible" |
-| `--pending` | `#FACC15` | `#A16207` | Marcador `[PENDIENTE]` (solo desarrollo) |
+| `--pending` | `#FACC15` | `#854D0E` | Marcador `[PENDIENTE]` (solo desarrollo) |
 
 Reglas:
 - `--accent` nunca se usa como color de texto en modo oscuro (contraste 2.3:1); para texto se usa `--accent-text`.
