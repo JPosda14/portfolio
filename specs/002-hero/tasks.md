@@ -38,4 +38,4 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   `npm run check && npm test`, `npm run lhci` y revisión final en navegador; ajustes si algo baja de 95.
   Hecho cuando: todo en verde, Lighthouse ≥ 95 × 4 en `/` y `/es/`, axe sin infracciones.
 
-Después: `/sdd-validate 002-hero`.
+**Validada y cerrada por Juan (2026-10-27):** 15/15 RF cumplen. check 0 errores, 21 unit, 130 e2e, Lighthouse 100 × 4, CLS 0. Pendiente menor para la spec 006: `sizes` de la foto debe reflejar 9rem en móvil.
