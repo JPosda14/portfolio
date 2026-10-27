@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig, fontProviders } from "astro/config";
 import sitemap from "@astrojs/sitemap";
+import linkGuard from "./integrations/link-guard.mjs";
 import pendingGuard from "./integrations/pending-guard.mjs";
 
 export default defineConfig({
@@ -50,5 +51,6 @@ export default defineConfig({
       },
     }),
     pendingGuard(),
+    linkGuard(),
   ],
 });

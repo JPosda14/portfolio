@@ -53,6 +53,17 @@ test.describe("hero content", () => {
     });
   }
 
+  for (const h of heroes) {
+    test(`${h.path} serves its CV as a PDF`, async ({ page, request }) => {
+      await page.goto(h.path);
+      const href = await page.locator('[data-cell="hero"]').getByRole("link", { name: h.cv.name }).getAttribute("href");
+      const response = await request.get(href ?? "");
+      expect(response.status()).toBe(200);
+      expect(response.headers()["content-type"]).toContain("application/pdf");
+      expect((await response.body()).subarray(0, 4).toString()).toBe("%PDF");
+    });
+  }
+
   for (const path of ["/", "/es/"]) {
     test(`on a 375×812 phone ${path} shows the name, role and main call to action without scrolling`, async ({ page }) => {
       await page.setViewportSize({ width: 375, height: 812 });

@@ -26,11 +26,11 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   Test en `pending-guard.test` primero (HTML con un móvil `+57 3…` → error); luego ampliar la integración con el patrón genérico.
   Hecho cuando: el test pasa y el build actual sigue en verde.
 
-- [ ] **T7 Guarda de enlaces internos** · RF13
+- [x] **T7 Guarda de enlaces internos** · RF13
   `link-guard.test` primero; luego `integrations/link-guard.mjs` registrada en la config. *Mientras no estén los CV, el build fallará por sus enlaces: es el comportamiento esperado.*
   Hecho cuando: los tests unitarios pasan y el build falla nombrando `/cv/juan-posada-cv-en.pdf` y `/cv/juan-posada-cv-es.pdf`.
 
-- [ ] **T8 CV sin teléfono** · RF7, RF13, RF15 · **bloqueada: requiere los PDF de Juan**
+- [x] **T8 CV sin teléfono** · RF7, RF13, RF15 (Juan entregó los PDF sin teléfono el 2026-10-27; hecha junto con T7 para no dejar el build en rojo)
   Instalar `unpdf`, `cv.test` primero (sin móvil colombiano, contiene el nombre); copiar los PDF a `public/cv/`; test e2e de descarga (200, `application/pdf`).
   Hecho cuando: `cv.test` y el test de descarga pasan y el build vuelve a verde.
 
