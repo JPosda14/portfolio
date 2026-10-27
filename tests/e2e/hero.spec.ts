@@ -6,6 +6,44 @@ const box = async (page: Page, cell: string) => {
   return rect;
 };
 
+const CAL_COM = "https://cal.com/juan-andres-posada-aleans-nawip2";
+
+const calls = [
+  { path: "/", work: "See my work", cv: "Download CV", call: "Book a call", newTab: "opens in a new tab" },
+  { path: "/es/", work: "Ver mi trabajo", cv: "Descargar CV", call: "Agendar llamada", newTab: "se abre en una pestaña nueva" },
+] as const;
+
+test.describe("calls to action", () => {
+  for (const c of calls) {
+    test(`${c.path} shows the three calls to action in the hero`, async ({ page }) => {
+      await page.goto(c.path);
+      const hero = page.locator('[data-cell="hero"]');
+      await expect(hero.getByRole("link", { name: c.work })).toBeVisible();
+      await expect(hero.getByRole("link", { name: c.cv })).toBeVisible();
+      await expect(hero.getByRole("link", { name: c.call })).toBeVisible();
+    });
+
+    test(`${c.path} opens Cal.com in a new tab and says so to screen readers`, async ({ page }) => {
+      await page.goto(c.path);
+      const call = page.locator('[data-cell="hero"]').getByRole("link", { name: c.call });
+      await expect(call).toHaveAttribute("href", CAL_COM);
+      await expect(call).toHaveAttribute("target", "_blank");
+      await expect(call).toHaveAttribute("rel", /noopener/);
+      await expect(call).toHaveAccessibleName(new RegExp(`${c.call}.*${c.newTab}`));
+    });
+  }
+
+  test("the primary call to action is visually distinct and at least 44px tall", async ({ page }) => {
+    await page.goto("/");
+    const hero = page.locator('[data-cell="hero"]');
+    const primary = hero.getByRole("link", { name: "See my work" });
+    const secondary = hero.getByRole("link", { name: "Download CV" });
+    await expect(primary).toHaveCSS("background-color", "rgb(0, 71, 255)");
+    await expect(secondary).not.toHaveCSS("background-color", "rgb(0, 71, 255)");
+    for (const link of [primary, secondary]) expect((await link.boundingBox())?.height).toBeGreaterThanOrEqual(44);
+  });
+});
+
 test.describe("bento grid", () => {
   for (const path of ["/", "/es/"]) {
     test(`on ${path} desktop shows the photo to the right of the hero, in the same row`, async ({ page }) => {

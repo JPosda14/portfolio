@@ -1,6 +1,8 @@
 ---
 // Home shared by both languages. More bento cells arrive in specs 003–005; their anchors exist already.
+import ButtonLink from "./ButtonLink.astro";
 import Cell from "./bento/Cell.astro";
+import { links } from "../content/links.ts";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getHome, getUi, type Locale } from "../i18n/index.ts";
 
@@ -18,6 +20,12 @@ const home = getHome(locale);
     <div class="bento">
       <Cell area="hero" label={home.hero.label}>
         <h1>{ui.site.name}</h1>
+        <!-- The full hero cell arrives in T4. -->
+        <div class="ctas">
+          <ButtonLink href={`#${ui.anchors.projects}`} variant="primary" icon="arrow-down">{home.hero.cta.work}</ButtonLink>
+          <ButtonLink href={home.hero.cvFile} icon="download" download>{home.hero.cta.cv}</ButtonLink>
+          <ButtonLink href={links.calCom} icon="calendar" external newTabLabel={ui.a11y.newTab}>{home.hero.cta.call}</ButtonLink>
+        </div>
       </Cell>
       <Cell area="photo" label={home.photo.label} />
     </div>
@@ -33,6 +41,12 @@ const home = getHome(locale);
     max-width: var(--container);
     margin: 0 auto;
     padding: var(--space-10) var(--margin) var(--space-12);
+  }
+
+  .ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
   }
 
   .bento {

@@ -10,7 +10,7 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   Tests de layout en `hero.spec` (1280 / 768 / 375 px y orden del DOM) primero; luego `Cell.astro` y la cuadrícula en `HomePage` con dos celdas vacías con su cabecera.
   Hecho cuando: los tests de layout pasan en escritorio y móvil.
 
-- [ ] **T3 Botón-enlace** · RF5, RF8
+- [x] **T3 Botón-enlace** · RF5, RF8
   Tests de los tres enlaces (nombres, Cal.com con `target`, `rel` y nombre accesible con "new tab" / "pestaña nueva") primero; luego `ButtonLink.astro` (primario, secundario, icono, externo).
   Hecho cuando: los tests de enlaces pasan en EN y ES.
 
