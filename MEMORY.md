@@ -39,5 +39,6 @@
 - `node --test` necesita un glob (`tests/unit/**/*.test.mjs`), no una carpeta.
 
 ## Próximos pasos
-- Spec 002-hero (/sdd-spec 002-hero).
+- Spec 002-hero: spec y plan aprobados (dev dep unpdf); tasks.md con 9 tareas aprobado. T8 bloqueada hasta los CV sin teléfono.
+- 002 T1 hecha: `src/content/home/{en,es}.ts` (hero, foto; rol en lead/highlight; cvFile por idioma), `getHome`, `src/content/links.ts` (correo, LinkedIn, GitHub, Cal.com, repo; sin teléfono), `ui.a11y.newTab`. Un test de Playwright falló una vez sin poder reproducirlo en 3 corridas: vigilar si es inestable. Siguiente: T2. Juan entregó foto (frontal, fondo blanco), CV PDF ES/EN y Cal.com: cal.com/juan-andres-posada-aleans-nawip2. Los PDF del CV incluyen el teléfono → no publicarlos así.
 - Pendiente de decidir: analítica (Cloudflare vs Umami).

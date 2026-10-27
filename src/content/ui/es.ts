@@ -12,6 +12,7 @@ export const es = {
   },
   a11y: {
     skipToContent: "Saltar al contenido",
+    newTab: "(se abre en una pestaña nueva)",
   },
   nav: {
     label: "Principal",
