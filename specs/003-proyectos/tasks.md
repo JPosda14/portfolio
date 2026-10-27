@@ -10,7 +10,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   `scripts/make-placeholders.mjs` y generación de portada + 2 imágenes de galería por proyecto en `src/content/projects/images/<slug>/`.
   Hecho cuando: las 6 imágenes existen, se ven bien (marco de navegador, nombre, "Captura de ejemplo / Example screenshot") y pesan poco.
 
-- [ ] **T3 Colección y contenido inicial** · RF1, RF2
+- [x] **T3 Colección y contenido inicial** · RF1, RF2
   `src/content.config.ts` con el esquema; los 4 archivos `.md` con los datos conocidos y `[PENDIENTE]` donde falte; textos de interfaz nuevos en `ui`.
   Hecho cuando: `npm run check` pasa y quitar `problem` de un archivo lo hace fallar nombrando archivo y campo.
 
