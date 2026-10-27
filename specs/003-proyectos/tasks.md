@@ -6,7 +6,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   Test unitario primero (`pendingGuard()` falla con `[PENDIENTE]`; `pendingGuard({ allowPending: true })` no, pero sigue fallando por teléfonos); luego la opción en la integración, `scripts/build-test.mjs`, script `build:test` y cambio de Playwright y Lighthouse a esa compilación.
   Hecho cuando: el test pasa, `npm run build` sigue bloqueando un `[PENDIENTE]` temporal y `npm run build:test` lo deja pasar.
 
-- [ ] **T2 Capturas de ejemplo** · RF15
+- [x] **T2 Capturas de ejemplo** · RF15 (sin marco de navegador: lo dibuja la tarjeta)
   `scripts/make-placeholders.mjs` y generación de portada + 2 imágenes de galería por proyecto en `src/content/projects/images/<slug>/`.
   Hecho cuando: las 6 imágenes existen, se ven bien (marco de navegador, nombre, "Captura de ejemplo / Example screenshot") y pesan poco.
 

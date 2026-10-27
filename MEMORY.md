@@ -39,7 +39,8 @@
 - `node --test` necesita un glob (`tests/unit/**/*.test.mjs`), no una carpeta.
 
 ## Próximos pasos
-- 003 T1 hecha: dos compilaciones. `npm run build` (publicación) bloquea [PENDIENTE]; `npm run build:test` (`scripts/build-test.mjs` con ALLOW_PENDING=1) lo permite con aviso y la usan Playwright y `npm run lhci`. Teléfonos y enlaces rotos se bloquean en ambas. Nunca desplegar la salida de build:test. Siguiente: T2.
+- 003 T1 hecha: dos compilaciones. `npm run build` (publicación) bloquea [PENDIENTE]; `npm run build:test` (`scripts/build-test.mjs` con ALLOW_PENDING=1) lo permite con aviso y la usan Playwright y `npm run lhci`. Teléfonos y enlaces rotos se bloquean en ambas. Nunca desplegar la salida de build:test.
+- 003 T2 hecha: `scripts/make-placeholders.mjs` genera con sharp 6 PNG de ejemplo (1600×1000, ~13 KB) en `src/content/projects/images/<slug>/{cover,gallery-1,gallery-2}.png`, sin marco de navegador (lo pone la tarjeta). Las capturas reales también deben ir sin marco. Siguiente: T3.
 - Spec 003-proyectos: spec, plan y 9 tareas aprobados (sin dependencias nuevas; Markdown en vez de MDX; build de prueba con ALLOW_PENDING).
 - Repos revisados: colchones-posada público (README es el de create-next-app; desplegado en Vercel Hobby, que prohíbe uso comercial → avisar a Juan). cue-event-manager: microservicios Java + frontend React/Vite/MUI; en los repos públicos solo aparecen commits de Jmendezzz y SamuelBerrio, no de JPosda14 → confirmar rol de Juan. Juan quiere la estructura completa ya, con contenido e imágenes de ejemplo marcados [PENDIENTE]; el contenido real se llena después en conversaciones por proyecto.
 - Para 006: `sizes` de la foto en móvil (9rem).
