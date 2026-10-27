@@ -22,7 +22,7 @@ Plan aprobado (con la dependencia `unpdf`). Una tarea por vez con `/sdd-implemen
   Tests de `alt`, `<source>` AVIF y WebP, `width`/`height`, sin `loading="lazy"`, ubicación e idiomas primero; luego copiar la foto a `src/assets/` y `PhotoCell.astro` con `<Picture>`.
   Hecho cuando: los tests pasan, CLS = 0 en Lighthouse y la foto se ve bien recortada en los tres anchos.
 
-- [ ] **T6 Sin teléfono en el HTML** · RF15
+- [x] **T6 Sin teléfono en el HTML** · RF15 (parte HTML; los PDF en T8)
   Test en `pending-guard.test` primero (HTML con un móvil `+57 3…` → error); luego ampliar la integración con el patrón genérico.
   Hecho cuando: el test pasa y el build actual sigue en verde.
 

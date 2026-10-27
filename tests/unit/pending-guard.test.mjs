@@ -5,8 +5,45 @@ import { join } from "node:path";
 import { after, before, describe, test } from "node:test";
 import { pathToFileURL } from "node:url";
 
-import pendingGuard, { findPendingMarkers } from "../../integrations/pending-guard.mjs";
+import pendingGuard, { findPendingMarkers, findPhoneNumbers, PHONE_PATTERN } from "../../integrations/pending-guard.mjs";
 import { splitPending } from "../../src/lib/pending.ts";
+
+// Fictional numbers in the Colombian mobile format; never a real one.
+const FAKE_PHONES = ["+57 300 123 4567", "+573001234567", "+57-310-555-0000", "+57 315.000.1111"];
+
+describe("PHONE_PATTERN", () => {
+  test("matches Colombian mobile numbers with or without separators", () => {
+    for (const phone of FAKE_PHONES) assert.match(phone, PHONE_PATTERN, phone);
+  });
+
+  test("ignores years, ranges and other numbers", () => {
+    for (const text of ["© 2026", "2023 – 2025", "UTC‑5", "4.5:1", "57 KB", "+1 555 123 4567"]) {
+      assert.doesNotMatch(text, PHONE_PATTERN, text);
+    }
+  });
+});
+
+describe("findPhoneNumbers", () => {
+  let dir;
+
+  before(async () => {
+    dir = await mkdtemp(join(tmpdir(), "phone-guard-"));
+    await writeFile(join(dir, "index.html"), "<p>Contact me by email</p>");
+    await writeFile(join(dir, "about.html"), `<a href="tel:+573001234567">Call</a> <p>${FAKE_PHONES[0]}</p>`);
+  });
+
+  after(() => rm(dir, { recursive: true, force: true }));
+
+  test("lists HTML files that publish a phone number", async () => {
+    assert.deepEqual(await findPhoneNumbers(dir), [{ file: "about.html", count: 2 }]);
+  });
+
+  test("the build hook fails and names the page", async () => {
+    const hook = pendingGuard().hooks["astro:build:done"];
+    const logger = { info() {}, error() {} };
+    await assert.rejects(() => hook({ dir: pathToFileURL(`${dir}/`), logger }), /phone.*about\.html/s);
+  });
+});
 
 describe("findPendingMarkers", () => {
   let dir;
