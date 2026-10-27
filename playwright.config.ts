@@ -26,7 +26,8 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: `npm run build && npm run preview -- --host ${HOST} --port ${PORT}`,
+    // Test build: allows [PENDIENTE] (sample content) but still blocks phone numbers and broken links.
+    command: `npm run build:test && npm run preview -- --host ${HOST} --port ${PORT}`,
     url: `http://${HOST}:${PORT}/`,
     reuseExistingServer: !process.env["CI"],
     timeout: 120_000,

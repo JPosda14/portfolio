@@ -21,7 +21,7 @@ Landing page personal bilingüe (EN/ES) de un Ingeniero de Software full‑stack
 - Mensajes de commit con comillas dobles: escribirlos en un archivo y usar `git commit -F`, porque PowerShell 5.1 los parte.
 - Orden del DOM = orden visual del bento: usa `grid-template-areas`, nunca `order` ni `grid-auto-flow: dense`.
 - El único JS permitido es el script inline del tema; cualquier otro necesita aprobación.
-- `[PENDIENTE]` marca contenido faltante: el build de producción debe fallar si queda alguno.
+- `[PENDIENTE]` marca contenido faltante: `npm run build` (publicación) falla si queda alguno; `npm run build:test` lo permite solo para pruebas. Nunca desplegar la salida de `build:test`.
 
 ## Memoria
 - Al empezar lee MEMORY.md; al terminar cada tarea, actualízalo (breve, sin secretos ni datos personales).

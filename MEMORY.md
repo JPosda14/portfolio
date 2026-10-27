@@ -39,7 +39,9 @@
 - `node --test` necesita un glob (`tests/unit/**/*.test.mjs`), no una carpeta.
 
 ## Próximos pasos
-- Spec 003-proyectos (/sdd-spec 003-proyectos). Necesita de Juan: casos P/A/R y capturas de Colchones Posada y del Proyecto Nuclear (pueden ir como [PENDIENTE]).
+- 003 T1 hecha: dos compilaciones. `npm run build` (publicación) bloquea [PENDIENTE]; `npm run build:test` (`scripts/build-test.mjs` con ALLOW_PENDING=1) lo permite con aviso y la usan Playwright y `npm run lhci`. Teléfonos y enlaces rotos se bloquean en ambas. Nunca desplegar la salida de build:test. Siguiente: T2.
+- Spec 003-proyectos: spec, plan y 9 tareas aprobados (sin dependencias nuevas; Markdown en vez de MDX; build de prueba con ALLOW_PENDING).
+- Repos revisados: colchones-posada público (README es el de create-next-app; desplegado en Vercel Hobby, que prohíbe uso comercial → avisar a Juan). cue-event-manager: microservicios Java + frontend React/Vite/MUI; en los repos públicos solo aparecen commits de Jmendezzz y SamuelBerrio, no de JPosda14 → confirmar rol de Juan. Juan quiere la estructura completa ya, con contenido e imágenes de ejemplo marcados [PENDIENTE]; el contenido real se llena después en conversaciones por proyecto.
 - Para 006: `sizes` de la foto en móvil (9rem).
 - Spec 002-hero: spec y plan aprobados (dev dep unpdf); tasks.md con 9 tareas aprobado. T8 bloqueada hasta los CV sin teléfono.
 - 002 T1 hecha: `src/content/home/{en,es}.ts` (hero, foto; rol en lead/highlight; cvFile por idioma), `getHome`, `src/content/links.ts` (correo, LinkedIn, GitHub, Cal.com, repo; sin teléfono), `ui.a11y.newTab`.- 002 T2 hecha: `bento/Cell.astro` (section con `data-cell`, `grid-area`, cabecera mono que nombra la región, `meta` opcional) y `.bento` en `HomePage` (4 / 2 / 1 columnas con `grid-template-areas`).

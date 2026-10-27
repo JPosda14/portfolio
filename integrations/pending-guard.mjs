@@ -47,17 +47,25 @@ export function findPhoneNumbers(dir) {
 /** @param {{ file: string; count: number }[]} found */
 const list = (found) => found.map(({ file, count }) => `  - ${file} (${count})`).join("\n");
 
-/** Fails the production build when a page still shows [PENDIENTE] or publishes a phone number. */
-export default function pendingGuard() {
+/**
+ * Fails the production build when a page still shows [PENDIENTE] or publishes a phone number.
+ * With `allowPending` (test build only) pending content is reported but allowed; phone numbers are always blocked.
+ * @param {{ allowPending?: boolean }} [options]
+ */
+export default function pendingGuard({ allowPending = false } = {}) {
   return {
     name: "pending-guard",
     hooks: {
-      /** @param {{ dir: URL; logger: { error: (msg: string) => void } }} options */
+      /** @param {{ dir: URL; logger: { warn?: (msg: string) => void; error: (msg: string) => void } }} options */
       "astro:build:done": async ({ dir, logger }) => {
         const root = fileURLToPath(dir);
         const problems = [];
         const pending = await findPendingMarkers(root);
-        if (pending.length > 0) problems.push(`${pending.length} page(s) contain ${MARKER}:\n${list(pending)}`);
+        if (pending.length > 0) {
+          const message = `${pending.length} page(s) contain ${MARKER}:\n${list(pending)}`;
+          if (allowPending) logger.warn?.(`Test build, not publishable: ${message}`);
+          else problems.push(message);
+        }
         const phones = await findPhoneNumbers(root);
         if (phones.length > 0) problems.push(`${phones.length} page(s) publish a phone number:\n${list(phones)}`);
         if (problems.length === 0) return;

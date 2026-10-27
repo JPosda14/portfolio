@@ -50,7 +50,8 @@ export default defineConfig({
         locales: { en: "en", es: "es" },
       },
     }),
-    pendingGuard(),
+    // ALLOW_PENDING is only set by `npm run build:test`; publishing (`npm run build`) blocks [PENDIENTE].
+    pendingGuard({ allowPending: process.env["ALLOW_PENDING"] === "1" }),
     linkGuard(),
   ],
 });

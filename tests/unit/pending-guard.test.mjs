@@ -77,6 +77,23 @@ describe("findPendingMarkers", () => {
       /es\/index\.html/,
     );
   });
+
+  test("the test build (allowPending) lets pending content through", async () => {
+    const hook = pendingGuard({ allowPending: true }).hooks["astro:build:done"];
+    const logger = { info() {}, warn() {}, error() {} };
+    await assert.doesNotReject(() => hook({ dir: pathToFileURL(`${dir}/`), logger }));
+  });
+});
+
+describe("pendingGuard({ allowPending })", () => {
+  test("still blocks phone numbers in the test build", async () => {
+    const dir = await mkdtemp(join(tmpdir(), "phone-allow-"));
+    await writeFile(join(dir, "index.html"), "<p>[PENDIENTE]</p><p>+57 300 123 4567</p>");
+    const hook = pendingGuard({ allowPending: true }).hooks["astro:build:done"];
+    const logger = { info() {}, warn() {}, error() {} };
+    await assert.rejects(() => hook({ dir: pathToFileURL(`${dir}/`), logger }), /phone/);
+    await rm(dir, { recursive: true, force: true });
+  });
 });
 
 describe("splitPending", () => {
