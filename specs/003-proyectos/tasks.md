@@ -14,7 +14,7 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   `src/content.config.ts` con el esquema; los 4 archivos `.md` con los datos conocidos y `[PENDIENTE]` donde falte; textos de interfaz nuevos en `ui`.
   Hecho cuando: `npm run check` pasa y quitar `problem` de un archivo lo hace fallar nombrando archivo y campo.
 
-- [ ] **T4 Reglas del conjunto y distribución** · RF3, RF4, RF6
+- [x] **T4 Reglas del conjunto y distribución** · RF3, RF4, RF6 (lógica; la cuadrícula visible en T5)
   `projects.test` primero (`checkProjectSet` y `projectAreas` para 2–5); luego `src/lib/projects.ts`.
   Hecho cuando: los tests unitarios pasan.
 
