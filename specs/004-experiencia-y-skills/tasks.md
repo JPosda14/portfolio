@@ -26,4 +26,4 @@ Plan aprobado (con la dependencia `simple-icons`). Una tarea por vez con `/sdd-i
   `npm run check && npm test`, `npm run lhci`, revisión final; README si cambia algo relevante.
   Hecho cuando: todo en verde, Lighthouse ≥ 95 × 4, axe sin infracciones, sin peticiones externas.
 
-Después: `/sdd-validate 004-experiencia-y-skills`.
+**Validada y cerrada por Juan (2026-10-29, modo ligero):** 14/14 RF con evidencia — RF1–RF4 y RF11 en `profile.spec` (contenido, LinkedIn, ancla, posiciones y orden); RF2 en `dates.test`; RF5–RF10 en `profile.spec` (categorías exactas, sin barras ni %, iconos `aria-hidden`); RF12 en `i18n.test` + prueba manual de clave faltante; RF13 en `quality.spec` e `icons.test`; RF14 en `a11y.spec` y Lighthouse 99–100 × 4. La distribución provisional se reacomoda en la spec 005.
