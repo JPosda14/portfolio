@@ -38,4 +38,4 @@ Plan aprobado (sin dependencias nuevas). Una tarea por vez con `/sdd-implement 0
   `a11y.spec` y Lighthouse CI ampliados a un caso por idioma; `npm run check && npm test`, `npm run lhci`, revisión final; README con cómo agregar o editar un proyecto.
   Hecho cuando: todo en verde, Lighthouse ≥ 95 × 4 en home y casos, axe sin infracciones.
 
-Después: `/sdd-validate 003-proyectos`.
+**Validada y cerrada por Juan (2026-10-29):** 15/16 RF cumplen; RF11 parcial (sin proyecto privado para probar "Código privado"). check 0 errores, 34 unit, 210 e2e, Lighthouse 99–100 × 4, CLS 0. `npm run build` bloqueado a propósito por `[PENDIENTE]` hasta llenar el contenido real.
