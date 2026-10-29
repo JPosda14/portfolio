@@ -6,7 +6,7 @@ Plan aprobado (con la dependencia `simple-icons`). Una tarea por vez con `/sdd-i
   `dates.test` primero; luego `src/lib/dates.ts` con `formatPeriod`.
   Hecho cuando: el test pasa para EN y ES (incluido "sep", sin punto).
 
-- [ ] **T2 Contenido de experiencia y skills** · RF12
+- [x] **T2 Contenido de experiencia y skills** · RF12
   `experience` y `skills` en `src/content/home/{en,es}.ts` con los datos aprobados.
   Hecho cuando: `npm run check` pasa (paridad de claves incluida) y quitar una clave en ES lo hace fallar.
 
