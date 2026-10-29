@@ -108,6 +108,7 @@ test.describe("project grid", () => {
     const order = await page.locator("[data-cell]").evaluateAll((nodes) =>
       nodes.map((node) => node.querySelector("h3")?.textContent?.trim() ?? node.getAttribute("data-cell")),
     );
-    expect(order).toEqual(["hero", "photo", "Colchones Posada", "CUE Event Manager"]);
+    // Later cells (experience, skills…) come after; profile.spec checks the full order.
+    expect(order.slice(0, 4)).toEqual(["hero", "photo", "Colchones Posada", "CUE Event Manager"]);
   });
 });

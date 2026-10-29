@@ -1,0 +1,102 @@
+---
+import Icon from "../Icon.astro";
+import Text from "../Text.astro";
+import Cell from "./Cell.astro";
+import { links } from "../../content/links.ts";
+import { getHome, getUi, type Locale } from "../../i18n/index.ts";
+import { formatPeriod } from "../../lib/dates.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const { experience } = getHome(locale);
+---
+
+<Cell area="exp" id={ui.anchors.experience} label={experience.label}>
+  <ol class="timeline">
+    {
+      experience.jobs.map((job) => (
+        <li>
+          <h3>
+            <Text value={job.role} />
+          </h3>
+          <p class="where">
+            <span>
+              <Text value={job.company} />
+            </span>
+            <time datetime={`${job.start}/${job.end}`}>{formatPeriod(job.start, job.end, locale)}</time>
+          </p>
+          <p class="achievement">
+            <Text value={job.achievement} />
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+  <a class="linkedin" href={links.linkedin} target="_blank" rel="noopener noreferrer">
+    {experience.linkedin}
+    <Icon name="arrow-up-right" size={14} />
+    <span class="visually-hidden"> {ui.a11y.newTab}</span>
+  </a>
+</Cell>
+
+<style>
+  .timeline {
+    display: grid;
+    gap: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: grid;
+    gap: var(--space-1);
+    padding-left: var(--space-4);
+    border-left: 2px solid var(--border-2);
+  }
+
+  h3 {
+    font-size: var(--text-role);
+  }
+
+  .where {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-1) var(--space-4);
+    font: 500 var(--text-label) / 1.4 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  time {
+    color: var(--text-2);
+  }
+
+  .achievement {
+    color: var(--text-2);
+  }
+
+  .linkedin {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    align-self: flex-start;
+    margin-top: auto;
+    padding: var(--space-2) 0;
+    font: 600 var(--text-label) / 1 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    text-decoration: none;
+  }
+
+  .linkedin:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+</style>

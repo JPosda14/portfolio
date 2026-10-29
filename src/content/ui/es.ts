@@ -51,6 +51,9 @@ export const es = {
       company: "Empresa",
     },
   },
+  profile: {
+    heading: "Experiencia y skills",
+  },
   case: {
     back: "Volver a proyectos",
     year: "Año",

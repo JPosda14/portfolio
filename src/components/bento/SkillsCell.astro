@@ -1,0 +1,86 @@
+---
+// One skill category: a list of icon + name, with an optional line at the bottom. No levels or percentages.
+import SkillIcon from "../SkillIcon.astro";
+import Text from "../Text.astro";
+import Cell from "./Cell.astro";
+
+interface Props {
+  area: string;
+  label: string;
+  items: readonly { icon: string; name: string }[];
+  /** Optional footer, e.g. "Also worked with: …". */
+  footer?: { label: string; text: string } | undefined;
+  /** Line icons (business skills) use the accent color; logos use the text color. */
+  accent?: boolean;
+}
+
+const { area, label, items, footer, accent = false } = Astro.props;
+---
+
+<Cell area={area} label={label}>
+  <ul class:list={["skills", { accent }]}>
+    {
+      items.map(({ icon, name }) => (
+        <li>
+          <SkillIcon id={icon} />
+          <span>
+            <Text value={name} />
+          </span>
+        </li>
+      ))
+    }
+  </ul>
+  {
+    footer && (
+      <p class="footer">
+        <span class="footer-label">
+          <Text value={footer.label} />
+        </span>{" "}
+        <Text value={footer.text} />
+      </p>
+    )
+  }
+</Cell>
+
+<style>
+  .skills {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 8rem), 1fr));
+    gap: var(--space-2);
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-width: 0;
+    padding: var(--space-2) var(--space-4) var(--space-2) var(--space-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-chip);
+    background: var(--surface-2);
+    font-size: var(--text-sm);
+  }
+
+  li :global(svg) {
+    flex: none;
+    color: var(--text-2);
+  }
+
+  .accent li :global(svg) {
+    color: var(--accent-text);
+  }
+
+  .footer {
+    margin-top: auto;
+    font-size: var(--text-sm);
+    color: var(--text-2);
+  }
+
+  .footer-label {
+    font: 600 var(--text-caps) / 1.3 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+</style>

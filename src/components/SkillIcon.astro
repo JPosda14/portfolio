@@ -1,0 +1,23 @@
+---
+// Icon for a skill: a monochrome technology logo or a line icon. Decorative: the skill name is always visible text.
+import Icon from "./Icon.astro";
+import { resolveIcon, techIcons } from "../lib/icons.ts";
+
+interface Props {
+  id: string;
+  size?: number;
+}
+
+const { id, size = 18 } = Astro.props;
+const icon = resolveIcon(id);
+---
+
+{
+  icon.kind === "tech" ? (
+    <svg viewBox="0 0 24 24" width={size} height={size} fill="currentColor" aria-hidden="true" focusable="false">
+      <path d={techIcons[icon.name].path} />
+    </svg>
+  ) : (
+    <Icon name={icon.name} size={size} />
+  )
+}

@@ -49,6 +49,9 @@ export const en = {
       company: "Company",
     },
   },
+  profile: {
+    heading: "Experience and skills",
+  },
   case: {
     back: "Back to projects",
     year: "Year",

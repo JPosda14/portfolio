@@ -13,13 +13,15 @@ interface Props {
   as?: "section" | "article";
   /** Id of the element that names the cell; defaults to the label. */
   labelledby?: string | undefined;
+  /** Makes the cell an anchor target, e.g. the header's "Experience" link. */
+  id?: string | undefined;
 }
 
-const { area, label, meta, class: className, as: Tag = "section", labelledby } = Astro.props;
+const { area, label, meta, class: className, as: Tag = "section", labelledby, id } = Astro.props;
 const labelId = `cell-${area}-label`;
 ---
 
-<Tag class:list={["cell", className]} data-cell={area} style={`grid-area: ${area}`} aria-labelledby={labelledby ?? labelId}>
+<Tag class:list={["cell", className]} id={id} data-cell={area} style={`grid-area: ${area}`} aria-labelledby={labelledby ?? labelId}>
   <header class="cell-header">
     <p id={labelId} class="cell-label">{label}</p>
     {meta && <p class="cell-meta">{meta}</p>}
@@ -37,6 +39,7 @@ const labelId = `cell-${area}-label`;
     border: 1px solid var(--border);
     border-radius: var(--radius-cell);
     background: var(--surface);
+    scroll-margin-top: var(--space-6);
   }
 
   .cell-header {
