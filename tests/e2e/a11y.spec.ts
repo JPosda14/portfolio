@@ -14,8 +14,13 @@ const routes = [
 for (const path of routes) {
   for (const theme of ["dark", "light"] as const) {
     test(`${path} has no detectable accessibility violations in the ${theme} theme`, async ({ page }) => {
+      // Load the page already in the chosen theme (as a returning visitor would): switching it after load
+      // lets axe measure colors mid-transition and report false contrast failures.
+      if (theme === "light") await page.addInitScript(() => localStorage.setItem("theme", "light"));
       await page.goto(path);
-      if (theme === "light") await page.evaluate(() => (document.documentElement.dataset["theme"] = "light"));
+      const html = page.locator("html");
+      if (theme === "light") await expect(html).toHaveAttribute("data-theme", "light");
+      else await expect(html).not.toHaveAttribute("data-theme", "light");
       const { violations } = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"]).analyze();
       expect(violations.map(({ id, nodes }) => `${id}: ${nodes.map((n) => n.target.join(" ")).join(", ")}`)).toEqual([]);
     });
