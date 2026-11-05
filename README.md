@@ -2,7 +2,7 @@
 
 Personal site of a full-stack software engineer with an AI focus. Bilingual (English at `/`, Spanish at `/es/`), static, and built with Spec-Driven Development: every feature starts as a spec with testable requirements before any code is written.
 
-> Status: work in progress. Specs 001 (foundation), 002 (hero) and 003 (projects and case studies) are built; experience, skills, contact and polish arrive in specs 004–006. Some case-study content is still marked `[PENDIENTE]`, so the release build is intentionally blocked. See [`docs/implementation-plan.md`](docs/implementation-plan.md).
+> Status: work in progress. Specs 001 (foundation), 002 (hero), 003 (projects and case studies), 004 (experience and skills) and 005 (how I think, "Now" and contact) are built; privacy page and polish arrive in spec 006. Some case-study content is still marked `[PENDIENTE]`, so the release build is intentionally blocked. See [`docs/implementation-plan.md`](docs/implementation-plan.md).
 
 ## Run it
 
@@ -43,6 +43,10 @@ src/content/projects/images/<slug>/    → cover and gallery images
 
 Rules enforced at build time: every project must exist in both languages, and there must be between 2 and 5 featured projects (the bento layout supports exactly that range).
 
+## Update the "Now" cell
+
+Edit `now.text` and `now.updated` (`YYYY-MM-DD`) in `src/content/home/en.ts` and `es.ts`. The site is static, so the date is checked at build time: on the first build more than 90 days after `updated`, the cell disappears and the photo takes its place. An invalid date fails the build. The e2e test for the cell also starts failing after 90 days, as a reminder to refresh it.
+
 ## Technical decisions
 
 Full reasoning lives in [`docs/trd.md`](docs/trd.md) and each spec's `plan.md`; the short version:
@@ -54,6 +58,7 @@ Full reasoning lives in [`docs/trd.md`](docs/trd.md) and each spec's `plan.md`; 
 - **Content honesty enforced by the build.** Missing content is marked `[PENDIENTE]`; a build integration blocks the release build while any page contains it, and it also blocks phone numbers and broken internal links.
 - **Case studies in Markdown, not MDX.** Structured fields (problem, action, result, decisions with the discarded alternative) live in the frontmatter; MDX would add a dependency without a need for components in the text.
 - **Bento layouts as data.** `projectAreas(n)` returns the grid areas for 2–5 projects; unit tests check every layout has rectangular areas, no holes and the right reading order.
+- **Contact without a form or copy button**: a `mailto` link, Cal.com, the CV and profiles. No backend, no personal data stored, no extra JavaScript.
 - **CSS-only view transitions** between a project card and its case page, disabled for reduced motion.
 - **Self-hosted fonts** (Playfair Display, Geist, JetBrains Mono) through the Astro Fonts API — no third-party requests.
 - **Dark by default for everyone**, with a remembered light option. Browsers report "light" whenever the OS is not in dark mode, so following the system would hide the primary design from most visitors.
