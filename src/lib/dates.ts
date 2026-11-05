@@ -1,12 +1,12 @@
 // Month and period labels for the experience timeline, e.g. "Sep 2025 – Jan 2026" / "sep 2025 – ene 2026".
 import type { Locale } from "../i18n/index.ts";
 
-const MONTH = /^(\d{4})-(0[1-9]|1[0-2])$/;
+const MONTH = /^(\d{4})-(0[1-9]|1[0-2])(?:-\d{2})?$/;
 
-/** "2025-09" → "Sep 2025" (en) / "sep 2025" (es). Always three-letter months, without dots. */
+/** "2025-09" (or "2025-09-14") → "Sep 2025" (en) / "sep 2025" (es). Always three-letter months, without dots. */
 export function formatMonth(isoMonth: string, locale: Locale): string {
   const match = MONTH.exec(isoMonth);
-  if (!match) throw new Error(`Expected a YYYY-MM month, got "${isoMonth}"`);
+  if (!match) throw new Error(`Expected a YYYY-MM or YYYY-MM-DD date, got "${isoMonth}"`);
   const date = new Date(Date.UTC(Number(match[1]), Number(match[2]) - 1, 1));
   const parts = new Intl.DateTimeFormat(locale, { month: "short", year: "numeric", timeZone: "UTC" }).formatToParts(date);
   // ICU writes "sept." in Spanish; the design uses three letters everywhere.

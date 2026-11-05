@@ -103,12 +103,12 @@ test.describe("project grid", () => {
     });
   }
 
-  test("the projects come after the hero and photo in reading order", async ({ page }) => {
+  test("the projects come after the hero, photo and now in reading order", async ({ page }) => {
     await page.goto("/");
     const order = await page.locator("[data-cell]").evaluateAll((nodes) =>
-      nodes.map((node) => node.querySelector("h3")?.textContent?.trim() ?? node.getAttribute("data-cell")),
+      nodes.map((node) => (node.tagName === "ARTICLE" ? node.querySelector("h3")?.textContent?.trim() : node.getAttribute("data-cell"))),
     );
     // Later cells (experience, skills…) come after; profile.spec checks the full order.
-    expect(order.slice(0, 4)).toEqual(["hero", "photo", "Colchones Posada", "CUE Event Manager"]);
+    expect(order.slice(0, 5)).toEqual(["hero", "photo", "now", "Colchones Posada", "CUE Event Manager"]);
   });
 });

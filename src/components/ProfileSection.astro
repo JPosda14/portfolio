@@ -1,7 +1,8 @@
 ---
-// Experience and skills: the part of the bento after the projects. Its own grid, same columns and gap.
+// Experience, how I think and skills: the part of the bento after the projects. Its own grid, same columns and gap.
 import ExperienceCell from "./bento/ExperienceCell.astro";
 import SkillsCell from "./bento/SkillsCell.astro";
+import ThinkingCell from "./bento/ThinkingCell.astro";
 import { getHome, getUi, type Locale } from "../i18n/index.ts";
 
 interface Props {
@@ -16,6 +17,7 @@ const { skills } = getHome(locale);
 <section class="profile" aria-labelledby="profile-heading">
   <h2 id="profile-heading" class="visually-hidden">{ui.profile.heading}</h2>
   <ExperienceCell locale={locale} />
+  <ThinkingCell locale={locale} />
   <SkillsCell area="daily" label={skills.daily.label} items={skills.daily.items} footer={{ label: skills.alsoLabel, text: skills.also }} />
   <SkillsCell area="learn" label={skills.learning.label} items={skills.learning.items} />
   <SkillsCell area="biz" label={skills.business.label} items={skills.business.items} accent />
@@ -26,8 +28,8 @@ const { skills } = getHome(locale);
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-template-areas:
-      "exp exp daily daily"
-      "learn learn biz biz";
+      "exp exp think think"
+      "daily daily learn biz";
     gap: var(--gutter);
     margin-top: var(--gutter);
   }
@@ -37,6 +39,7 @@ const { skills } = getHome(locale);
       grid-template-columns: repeat(2, minmax(0, 1fr));
       grid-template-areas:
         "exp exp"
+        "think think"
         "daily daily"
         "learn biz";
     }
@@ -45,7 +48,7 @@ const { skills } = getHome(locale);
   @media (max-width: 639px) {
     .profile {
       grid-template-columns: minmax(0, 1fr);
-      grid-template-areas: "exp" "daily" "learn" "biz";
+      grid-template-areas: "exp" "think" "daily" "learn" "biz";
     }
   }
 </style>

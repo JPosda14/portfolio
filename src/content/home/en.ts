@@ -79,6 +79,49 @@ export const en = {
       ],
     },
   },
+  now: {
+    label: "Now",
+    // YYYY-MM-DD. The cell disappears 90 days after this date (on the next build).
+    updated: "2026-11-04",
+    updatedLabel: "Updated",
+    text: "Looking for a remote full-stack role. Learning Astro and AI-agent development.",
+  },
+  thinking: {
+    label: "How I think // Process",
+    steps: [
+      {
+        icon: "search",
+        name: "Understand",
+        title: "Problem first",
+        text: "I ask until I understand what hurts and how success will be measured, before choosing any technology.",
+      },
+      {
+        icon: "file-text",
+        name: "Specify",
+        title: "Write it down before coding",
+        text: "I write testable requirements and a plan; AI works from that spec, not from guesses.",
+      },
+      {
+        icon: "circle-check",
+        name: "Verify",
+        title: "Test and measure",
+        text: "Tests first, accessibility and performance measured; nothing is done without evidence.",
+      },
+    ],
+  },
+  contact: {
+    label: "Contact",
+    title: {
+      lead: "Let's build something",
+      highlight: "together.",
+    },
+    paragraph: "I'm looking for a remote full-stack role and I take freelance projects. Email me or book a 30-minute call.",
+    emailLabel: "Email",
+    call: "Book a call",
+    cv: "Download CV",
+    linkedin: "LinkedIn",
+    github: "GitHub",
+  },
 } as const;
 
 type Strings<T> = { readonly [K in keyof T]: T[K] extends string ? string : Strings<T[K]> };

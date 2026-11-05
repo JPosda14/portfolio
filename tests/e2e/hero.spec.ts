@@ -157,13 +157,16 @@ test.describe("bento grid", () => {
     });
   }
 
-  test("tablet places the photo below the full-width hero", async ({ page }) => {
+  test("tablet places the photo and now side by side below the full-width hero", async ({ page }) => {
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.goto("/");
     const hero = await box(page, "hero");
     const photo = await box(page, "photo");
+    const now = await box(page, "now");
     expect(photo.y).toBeGreaterThanOrEqual(hero.y + hero.height);
-    expect(Math.abs(photo.width - hero.width)).toBeLessThan(2);
+    expect(Math.abs(now.y - photo.y)).toBeLessThan(1);
+    expect(Math.abs(photo.x - hero.x)).toBeLessThan(1);
+    expect(Math.abs(now.x + now.width - (hero.x + hero.width))).toBeLessThan(1);
   });
 
   test("mobile stacks every cell in one column", async ({ page }) => {

@@ -1,29 +1,36 @@
 ---
-// Home shared by both languages. More bento cells arrive in specs 004–005; their anchors exist already.
+// Home shared by both languages: hero bento, projects, profile (experience, thinking, skills) and contact.
 import ProfileSection from "./ProfileSection.astro";
 import ProjectsSection from "./ProjectsSection.astro";
+import ContactCell from "./bento/ContactCell.astro";
 import HeroCell from "./bento/HeroCell.astro";
+import NowCell from "./bento/NowCell.astro";
 import PhotoCell from "./bento/PhotoCell.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { getUi, type Locale } from "../i18n/index.ts";
+import { getHome, type Locale } from "../i18n/index.ts";
+import { isNowFresh } from "../lib/now.ts";
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const ui = getUi(locale);
+// Static site: "Now" is checked when the site is built, so it disappears on the first build after 90 days.
+const showNow = isNowFresh(getHome(locale).now.updated, new Date());
 ---
 
 <BaseLayout locale={locale} alternates={{ en: "/", es: "/es/" }}>
   <main id="main">
-    <div class="bento">
+    <div class:list={["bento", { "has-now": showNow }]}>
       <HeroCell locale={locale} />
       <PhotoCell locale={locale} />
+      {showNow && <NowCell locale={locale} />}
     </div>
     <ProjectsSection locale={locale} />
     <ProfileSection locale={locale} />
-    <section id={ui.anchors.contact}></section>
+    <div class="closing">
+      <ContactCell locale={locale} />
+    </div>
   </main>
 </BaseLayout>
 
@@ -42,6 +49,18 @@ const ui = getUi(locale);
     gap: var(--gutter);
   }
 
+  .bento.has-now {
+    grid-template-areas:
+      "hero hero photo photo"
+      "hero hero now now";
+  }
+
+  .closing {
+    display: grid;
+    grid-template-areas: "contact";
+    margin-top: var(--gutter);
+  }
+
   @media (max-width: 1023px) {
     .bento {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -49,14 +68,31 @@ const ui = getUi(locale);
         "hero hero"
         "photo photo";
     }
+
+    .bento.has-now {
+      grid-template-areas:
+        "hero hero"
+        "photo now";
+    }
   }
 
   @media (max-width: 639px) {
-    .bento {
+    .bento,
+    .bento.has-now {
       grid-template-columns: minmax(0, 1fr);
+    }
+
+    .bento {
       grid-template-areas:
         "hero"
         "photo";
+    }
+
+    .bento.has-now {
+      grid-template-areas:
+        "hero"
+        "photo"
+        "now";
     }
 
     main {

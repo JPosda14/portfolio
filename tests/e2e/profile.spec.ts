@@ -92,35 +92,44 @@ test.describe("profile grid", () => {
     return rect;
   };
 
-  test("desktop: experience beside daily use, learning beside business", async ({ page }) => {
+  test("desktop: experience beside how I think; daily, learning and business in one row; contact full width", async ({ page }) => {
     await page.setViewportSize({ width: 1280, height: 900 });
     await page.goto("/");
     const exp = await box(page, "exp");
+    const think = await box(page, "think");
     const daily = await box(page, "daily");
     const learn = await box(page, "learn");
     const biz = await box(page, "biz");
-    expect(Math.abs(exp.y - daily.y)).toBeLessThan(1);
-    expect(daily.x).toBeGreaterThan(exp.x);
-    expect(learn.y).toBeGreaterThanOrEqual(exp.y + exp.height);
+    const contact = await box(page, "contact");
+    expect(Math.abs(exp.y - think.y)).toBeLessThan(1);
+    expect(think.x).toBeGreaterThan(exp.x);
+    expect(daily.y).toBeGreaterThanOrEqual(exp.y + exp.height);
+    expect(Math.abs(daily.y - learn.y)).toBeLessThan(1);
     expect(Math.abs(learn.y - biz.y)).toBeLessThan(1);
+    expect(learn.x).toBeGreaterThan(daily.x);
+    expect(biz.x).toBeGreaterThan(learn.x);
+    expect(contact.y).toBeGreaterThanOrEqual(daily.y + daily.height);
+    expect(Math.abs(contact.x - exp.x)).toBeLessThan(1);
+    expect(Math.abs(contact.x + contact.width - (biz.x + biz.width))).toBeLessThan(1);
   });
 
   for (const width of [768, 375]) {
     test(`at ${width}px the cells fit without horizontal overflow`, async ({ page }) => {
       await page.setViewportSize({ width, height: 900 });
       await page.goto("/");
-      const [exp, daily] = await Promise.all([box(page, "exp"), box(page, "daily")]);
-      expect(daily.y).toBeGreaterThanOrEqual(exp.y + exp.height);
+      const [exp, think, daily] = await Promise.all([box(page, "exp"), box(page, "think"), box(page, "daily")]);
+      expect(think.y).toBeGreaterThanOrEqual(exp.y + exp.height);
+      expect(daily.y).toBeGreaterThanOrEqual(think.y + think.height);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow).toBe(0);
     });
   }
 
-  test("reading order: hero, photo, projects, experience, skills", async ({ page }) => {
+  test("reading order: hero, photo, now, projects, experience, how I think, skills, contact", async ({ page }) => {
     await page.goto("/");
     const order = await page.locator("[data-cell]").evaluateAll((nodes) =>
-      nodes.map((node) => node.querySelector("h3")?.closest("article") ? "project" : node.getAttribute("data-cell")),
+      nodes.map((node) => (node.tagName === "ARTICLE" ? "project" : node.getAttribute("data-cell"))),
     );
-    expect(order).toEqual(["hero", "photo", "project", "project", "exp", "daily", "learn", "biz"]);
+    expect(order).toEqual(["hero", "photo", "now", "project", "project", "exp", "think", "daily", "learn", "biz", "contact"]);
   });
 });

@@ -80,4 +80,46 @@ export const es = {
       ],
     },
   },
+  now: {
+    label: "Ahora",
+    updated: "2026-11-04",
+    updatedLabel: "Actualizado",
+    text: "Buscando un rol remoto full-stack. Aprendiendo Astro y desarrollo con agentes de IA.",
+  },
+  thinking: {
+    label: "Cómo pienso // Proceso",
+    steps: [
+      {
+        icon: "search",
+        name: "Entender",
+        title: "Primero el problema",
+        text: "Pregunto hasta entender qué duele y cómo se medirá el éxito, antes de elegir tecnología.",
+      },
+      {
+        icon: "file-text",
+        name: "Especificar",
+        title: "Documentar antes de programar",
+        text: "Escribo requisitos verificables y un plan; la IA trabaja sobre esa especificación, no sobre suposiciones.",
+      },
+      {
+        icon: "circle-check",
+        name: "Verificar",
+        title: "Probar y medir",
+        text: "Tests primero, accesibilidad y rendimiento medidos; nada está terminado sin evidencia.",
+      },
+    ],
+  },
+  contact: {
+    label: "Contacto",
+    title: {
+      lead: "Construyamos algo",
+      highlight: "juntos.",
+    },
+    paragraph: "Busco un rol remoto full-stack y acepto proyectos freelance. Escríbeme o agenda una llamada de 30 minutos.",
+    emailLabel: "Correo",
+    call: "Agendar llamada",
+    cv: "Descargar CV",
+    linkedin: "LinkedIn",
+    github: "GitHub",
+  },
 } satisfies HomeStrings;

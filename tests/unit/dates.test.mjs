@@ -27,4 +27,9 @@ describe("formatPeriod", () => {
     assert.throws(() => formatMonth("2025-13", "en"));
     assert.throws(() => formatMonth("Sep 2025", "en"));
   });
+
+  test("also accepts a full YYYY-MM-DD date and shows its month", () => {
+    assert.equal(formatMonth("2026-11-04", "en"), "Nov 2026");
+    assert.equal(formatMonth("2026-11-04", "es"), "nov 2026");
+  });
 });

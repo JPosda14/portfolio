@@ -1,0 +1,95 @@
+---
+// "How I think": three process steps as sub-cards. Icons are decorative.
+import SkillIcon from "../SkillIcon.astro";
+import Text from "../Text.astro";
+import Cell from "./Cell.astro";
+import { getHome, type Locale } from "../../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { thinking } = getHome(Astro.props.locale);
+---
+
+<Cell area="think" label={thinking.label}>
+  <ol class="steps">
+    {
+      thinking.steps.map((step, index) => (
+        <li>
+          <p class="step-head">
+            <span class="icon">
+              <SkillIcon id={step.icon} size={18} />
+            </span>
+            <span class="step-tag">
+              {String(index + 1).padStart(2, "0")} / <Text value={step.name} />
+            </span>
+          </p>
+          <h3>
+            <Text value={step.title} />
+          </h3>
+          <p class="text">
+            <Text value={step.text} />
+          </p>
+        </li>
+      ))
+    }
+  </ol>
+</Cell>
+
+<style>
+  .steps {
+    display: grid;
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Side by side only on tablet, where the cell spans the full width; stacked in the half-width desktop cell. */
+  @media (min-width: 640px) and (max-width: 1023px) {
+    .steps {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    padding: var(--space-4);
+    border-radius: var(--radius-control);
+    background: var(--surface-2);
+  }
+
+  .step-head {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .icon {
+    display: inline-grid;
+    flex: none;
+    place-items: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-chip);
+    background: var(--surface);
+    color: var(--accent-text);
+  }
+
+  .step-tag {
+    font: 600 var(--text-caps) / 1.3 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+  }
+
+  h3 {
+    font: italic 400 var(--text-lg) / 1.25 var(--font-display);
+  }
+
+  .text {
+    font-size: var(--text-sm);
+    color: var(--text-2);
+  }</style>

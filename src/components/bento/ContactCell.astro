@@ -1,0 +1,179 @@
+---
+// Contact: closes the page. mailto + Cal.com + CV + profiles; no form, no phone, no JS.
+import ButtonLink from "../ButtonLink.astro";
+import Icon from "../Icon.astro";
+import SkillIcon from "../SkillIcon.astro";
+import Text from "../Text.astro";
+import Cell from "./Cell.astro";
+import { links } from "../../content/links.ts";
+import { getHome, getUi, type Locale } from "../../i18n/index.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const { contact, hero, photo } = getHome(locale);
+const profiles = [
+  { name: contact.linkedin, href: links.linkedin, icon: undefined },
+  { name: contact.github, href: links.github, icon: "github" },
+] as const;
+// On narrow screens the address wraps after the "@" instead of mid-word.
+const [emailUser, emailDomain] = links.email.split("@");
+---
+
+<Cell area="contact" id={ui.anchors.contact} label={contact.label} class="contact">
+  <div class="body">
+    <div class="pitch">
+      <h2><Text value={contact.title.lead} /> <em><Text value={contact.title.highlight} /></em></h2>
+      <p class="paragraph"><Text value={contact.paragraph} /></p>
+      <p class="email">
+        <span class="visually-hidden">{contact.emailLabel}: </span>
+        <a href={`mailto:${links.email}`}><Icon name="mail" size={16} /><span>{emailUser}@<wbr />{emailDomain}</span></a>
+      </p>
+    </div>
+
+    <div class="actions">
+      <div class="buttons">
+        <ButtonLink href={links.calCom} variant="primary" icon="calendar" external newTabLabel={ui.a11y.newTab}>{contact.call}</ButtonLink>
+        <ButtonLink href={hero.cvFile} icon="download" download>{contact.cv}</ButtonLink>
+      </div>
+      <ul class="profiles">
+        {
+          profiles.map((profile) => (
+            <li>
+              <a href={profile.href} target="_blank" rel="noopener noreferrer">
+                {profile.icon && <SkillIcon id={profile.icon} size={14} />}
+                {profile.name}
+                <Icon name="arrow-up-right" size={14} />
+                <span class="visually-hidden"> {ui.a11y.newTab}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <p class="languages">
+        <span class="languages-label"><Text value={photo.languagesLabel} /></span>
+        <Text value={photo.languages} />
+      </p>
+    </div>
+  </div>
+</Cell>
+
+<style>
+  .body {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: end;
+    gap: var(--space-10);
+  }
+
+  .pitch {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  h2 {
+    font: 400 var(--text-section) / 1.1 var(--font-display);
+  }
+
+  h2 em {
+    color: var(--accent-text);
+  }
+
+  .paragraph {
+    max-width: 52ch;
+    font-size: var(--text-lg);
+    color: var(--text-2);
+  }
+
+  .email a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-height: 2.75rem;
+    padding: var(--space-2) var(--space-4);
+    border: 1px solid var(--border-2);
+    border-radius: var(--radius-chip);
+    background: var(--surface-2);
+    font: 500 var(--text-md) / 1.2 var(--font-mono);
+    color: var(--text);
+    text-decoration: none;
+    transition: border-color var(--duration) var(--ease);
+  }
+
+  .email a:hover {
+    border-color: var(--accent-text);
+  }
+
+  .email :global(svg) {
+    flex: none;
+    color: var(--accent-text);
+  }
+
+  .actions {
+    display: grid;
+    justify-items: end;
+    gap: var(--space-4);
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: var(--space-2);
+  }
+
+  .profiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .profiles a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    min-height: 2.75rem;
+    font: 600 var(--text-label) / 1 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--accent-text);
+    text-decoration: none;
+  }
+
+  .profiles a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .languages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    font-size: var(--text-sm);
+    color: var(--text-2);
+  }
+
+  .languages-label {
+    font: 600 var(--text-caps) / 1.6 var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  @media (max-width: 1023px) {
+    .body {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-6);
+    }
+
+    .actions,
+    .buttons {
+      justify-items: start;
+      justify-content: flex-start;
+    }
+  }
+</style>
