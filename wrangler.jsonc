@@ -3,6 +3,10 @@
 {
   "name": "portfolio",
   "compatibility_date": "2026-11-05",
+  // Served at https://portfolio.juanposada.workers.dev (see site.mjs).
+  "workers_dev": true,
+  // No per-version preview URLs: they would publish copies of the site at other addresses.
+  "preview_urls": false,
   "assets": {
     "directory": "./dist",
     "not_found_handling": "404-page",

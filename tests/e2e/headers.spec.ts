@@ -34,7 +34,7 @@ for (const path of ["/", "/es/proyectos/colchones-posada/", "/privacy/", "/this-
 
 test("hashed build assets are cached for a year; the rest uses the security headers", () => {
   expect(headersFile).toMatch(/\/_astro\/\*\s+Cache-Control: public, max-age=31536000, immutable/);
-  for (const header of ["X-Content-Type-Options: nosniff", "Referrer-Policy:", "X-Frame-Options: DENY", "Permissions-Policy:"]) {
+  for (const header of ["X-Content-Type-Options: nosniff", "Referrer-Policy:", "X-Frame-Options: DENY", "Permissions-Policy:", "Strict-Transport-Security:"]) {
     expect(headersFile).toContain(header);
   }
 });
