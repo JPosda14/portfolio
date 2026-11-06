@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { SITE_URL as SITE } from "../../site.mjs";
 
 const pages = [
   {
@@ -37,8 +38,8 @@ for (const p of pages) {
     test("links to the other language with the switch and hreflang", async ({ page }) => {
       await page.goto(p.path);
       await expect(page.locator(".language-switch a")).toHaveAttribute("href", p.other);
-      await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute("href", "https://juanposada.dev/privacy/");
-      await expect(page.locator('link[rel="alternate"][hreflang="es"]')).toHaveAttribute("href", "https://juanposada.dev/es/privacidad/");
+      await expect(page.locator('link[rel="alternate"][hreflang="en"]')).toHaveAttribute("href", `${SITE}/privacy/`);
+      await expect(page.locator('link[rel="alternate"][hreflang="es"]')).toHaveAttribute("href", `${SITE}/es/privacidad/`);
     });
   });
 }
@@ -61,7 +62,7 @@ for (const f of footers) {
 
 test("the sitemap pairs both privacy pages", async ({ request }) => {
   const xml = await (await request.get("/sitemap-0.xml")).text();
-  const entry = xml.split("<url>").find((block) => block.includes("<loc>https://juanposada.dev/privacy/</loc>"));
+  const entry = xml.split("<url>").find((block) => block.includes(`<loc>${SITE}/privacy/</loc>`));
   expect(entry).toBeDefined();
-  expect(entry).toContain('hreflang="es" href="https://juanposada.dev/es/privacidad/"');
+  expect(entry).toContain(`hreflang="es" href="${SITE}/es/privacidad/"`);
 });

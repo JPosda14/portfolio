@@ -12,6 +12,7 @@ import sharp from "sharp";
 
 import { getHome, getUi, locales } from "../src/i18n/index.ts";
 import { OG_HEIGHT, OG_WIDTH } from "../src/lib/seo.ts";
+import { SITE_URL } from "../site.mjs";
 
 const root = fileURLToPath(new URL("..", import.meta.url));
 const dist = join(root, "dist");
@@ -85,7 +86,7 @@ const template = (card) => `<!doctype html><html lang="${card.locale}"><head><me
   .text em { color: #60a5fa; }
   .footer { margin-top: auto; font: 400 22px/1.4 var(--font-body); color: #94a3b8; }
 </style></head><body><div class="card">
-  <div class="top"><p class="logo">juan<span>.</span>posada</p><p class="site">juanposada.dev</p></div>
+  <div class="top"><p class="logo">juan<span>.</span>posada</p><p class="site">${escape(new URL(SITE_URL).host)}</p></div>
   <p class="label">${escape(card.label)}</p>
   <h1>${escape(card.title)}</h1>
   <p class="text">${card.key === "home" ? card.text : escape(card.text)}</p>

@@ -1,0 +1,12 @@
+# Response headers for Cloudflare Workers static assets (this file is not served).
+# The script hash is the inline theme script (src/components/ThemeScript.astro); headers.spec fails if they drift.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'sha256-hPfhg8CC10ziUpvTA/AckvjdkWHDRgUdPKVw+gTMLx4='; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=()
+  Cross-Origin-Opener-Policy: same-origin
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

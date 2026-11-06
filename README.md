@@ -43,6 +43,10 @@ src/content/projects/images/<slug>/    → cover and gallery images
 
 Rules enforced at build time: every project must exist in both languages, and there must be between 2 and 5 featured projects (the bento layout supports exactly that range).
 
+## Deploy
+
+Live at <https://portfolio.juanposada.workers.dev>, on Cloudflare Workers with static assets (no Worker code). Every push to `main` triggers Workers Builds: build `npm run build` (the release build, with all guards), deploy `npx wrangler deploy` ([`wrangler.jsonc`](wrangler.jsonc)). Security and cache headers live in [`public/_headers`](public/_headers); its CSP allows only the inline theme script by hash, and `headers.spec` fails if that script changes without updating the hash. The site address lives only in [`site.mjs`](site.mjs).
+
 ## Share images (Open Graph)
 
 Every indexable page has a 1200 × 630 share image in `public/og/` (`home-<lang>.png`, `<slug>-<lang>.png`). After changing a title, role or summary, regenerate them:

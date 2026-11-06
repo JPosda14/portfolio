@@ -6,6 +6,7 @@ import SkipLink from "../components/SkipLink.astro";
 import ThemeScript from "../components/ThemeScript.astro";
 import { defaultLocale, getUi, locales, type Alternates, type Locale } from "../i18n/index.ts";
 import { OG_HEIGHT, OG_WIDTH, ogImagePath, ogLocale } from "../lib/seo.ts";
+import { SITE_URL } from "../../site.mjs";
 import "../styles/global.css";
 
 interface Props {
@@ -24,7 +25,7 @@ interface Props {
 
 const { locale, alternates, title, description, noindex = false, og = {}, jsonLd } = Astro.props;
 const ui = getUi(locale);
-const site = Astro.site ?? new URL("https://juanposada.dev");
+const site = Astro.site ?? new URL(SITE_URL);
 const absolute = (path: string) => new URL(path, site).href;
 const pageTitle = title ?? ui.meta.title;
 const pageDescription = description ?? ui.meta.description;

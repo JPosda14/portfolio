@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
-
-const SITE = "https://juanposada.dev";
+import { SITE_URL as SITE } from "../../site.mjs";
 
 const pages = [
   { path: "/", lang: "en", title: /Full-stack Software Engineer/, anchors: ["projects", "experience", "contact"] },

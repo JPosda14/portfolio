@@ -21,7 +21,7 @@
 ## Decisiones (y por qué)
 - Astro 7 + CSS propio: cero JS y señal técnica de CSS (docs/research/03).
 - `/` en inglés, `/es` en español: el reclutador no pierde un clic eligiendo idioma.
-- Cloudflare + `juanposada.dev`: gratis y permite anunciar servicios (Vercel Hobby no).
+- Cloudflare (Workers con archivos estáticos): gratis y permite anunciar servicios (Vercel Hobby no). Por ahora sin dominio propio (Juan, 2026-11-05): `https://portfolio.juanposada.workers.dev` (subdominio de cuenta `juanposada`, Worker `portfolio`). La dirección vive solo en `site.mjs`. Para pasar a `juanposada.dev`: cambiar `site.mjs`, `node scripts/make-og.mjs`, dominio personalizado en el Worker y redirección.
 - Contacto sin formulario (mailto + Cal.com): sin backend ni obligaciones de la Ley 1581.
 - Sin cifra clave en el hero hasta tener más proyectos o métricas reales.
 - Estructura primero con datos del CV y `[PENDIENTE]`; contenido real de cada caso después.
@@ -67,7 +67,7 @@
   - `a11y.spec` corre con movimiento reducido.
   - Decisión de Juan: sin analítica con script.
   - Todo en verde: 53 unit, 316 e2e, Lighthouse 99–100. Spec 006 validada y cerrada (2026-11-05): 13/13 RF; cierra también RF8 de 001.
-- Siguiente: Fase 5 (verificación completa, Cyber Neo) → Fase 6 (Cloudflare + juanposada.dev; reconstrucción programada por "Ahora").
+- Fase 6 en curso (2026-11-05): `wrangler.jsonc` (assets `./dist`, 404-page, force-trailing-slash), `public/_headers` (CSP con hash del script del tema + cabeceras de seguridad + caché inmutable de `/_astro/*`; `headers.spec` avisa si el hash cambia: recalcular y actualizar `_headers`), `.node-version` 24, `robots.txt` generado. Despliegue con Workers Builds: compilar `npm run build`, desplegar `npx wrangler deploy`. Cuentas, pagos y dashboard los hace Juan (con Cowork). Pendiente: importar el repo, revisar el sitio en vivo, reconstrucción programada por "Ahora" y Fase 5 (Cyber Neo) sobre el sitio en vivo.
 - Spec 003-proyectos: spec, plan y 9 tareas aprobados (sin dependencias nuevas; Markdown en vez de MDX; build de prueba con ALLOW_PENDING).
 - Repos revisados: colchones-posada público (README es el de create-next-app; desplegado en Vercel Hobby, que prohíbe uso comercial → avisar a Juan). cue-event-manager: microservicios Java + frontend React/Vite/MUI; en los repos públicos solo aparecen commits de Jmendezzz y SamuelBerrio, no de JPosda14 → confirmar rol de Juan. Juan quiere la estructura completa ya, con contenido e imágenes de ejemplo marcados [PENDIENTE]; el contenido real se llena después en conversaciones por proyecto.
 - Para 006: `sizes` de la foto en móvil (9rem).

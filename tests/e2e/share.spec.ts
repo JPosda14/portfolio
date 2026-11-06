@@ -1,6 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
-
-const SITE = "https://juanposada.dev";
+import { SITE_URL as SITE } from "../../site.mjs";
 
 const pages = [
   { path: "/", image: "/og/home-en.png", locale: "en_US", alternate: "es_CO", type: "website" },

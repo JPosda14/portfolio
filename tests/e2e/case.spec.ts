@@ -1,6 +1,5 @@
 import { expect, test } from "@playwright/test";
-
-const SITE = "https://juanposada.dev";
+import { SITE_URL as SITE } from "../../site.mjs";
 
 const cases = [
   {

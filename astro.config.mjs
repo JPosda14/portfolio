@@ -4,9 +4,10 @@ import sitemap from "@astrojs/sitemap";
 import linkGuard from "./integrations/link-guard.mjs";
 import ogGuard from "./integrations/og-guard.mjs";
 import pendingGuard from "./integrations/pending-guard.mjs";
+import { SITE_URL } from "./site.mjs";
 
 export default defineConfig({
-  site: "https://juanposada.dev",
+  site: SITE_URL,
   trailingSlash: "always",
   i18n: {
     defaultLocale: "en",
