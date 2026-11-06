@@ -83,6 +83,32 @@ button {
   }
 }
 
+/*
+ * Soft entrance for the home cells below the first block (projects, profile, contact) as they scroll into view.
+ * CSS only (scroll-driven animation); browsers without support show them as they are. The hero and photo
+ * never animate, so the first paint and the LCP stay untouched.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: view()) {
+    /* Longhands on purpose: the minifier would merge a shorthand into "animation: … view()",
+       which browsers that support animation-timeline but not in the shorthand reject entirely. */
+    .bento ~ * [data-cell] {
+      animation-name: cell-enter;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+@keyframes cell-enter {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

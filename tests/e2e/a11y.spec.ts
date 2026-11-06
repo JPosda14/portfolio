@@ -8,8 +8,13 @@ const routes = [
   "/es/proyectos/colchones-posada/",
   "/projects/university-capstone/",
   "/es/proyectos/university-capstone/",
+  "/privacy/",
+  "/es/privacidad/",
   "/this-page-does-not-exist/",
 ];
+
+// axe must measure the final colors, not cells halfway through the entrance animation (polish.spec covers it).
+test.use({ contextOptions: { reducedMotion: "reduce" } });
 
 for (const path of routes) {
   for (const theme of ["dark", "light"] as const) {

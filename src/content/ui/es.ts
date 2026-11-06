@@ -74,6 +74,11 @@ export const es = {
     privateCode: "Código privado",
     next: "Siguiente proyecto",
   },
+  privacy: {
+    title: "Privacidad",
+    description: "Qué datos personales tratan este sitio y Juan Andrés Posada, para qué y cómo pedir que se eliminen.",
+    updated: "Actualizado",
+  },
   notFound: {
     title: "Página no encontrada",
     message: "La página que buscas no existe o cambió de lugar.",

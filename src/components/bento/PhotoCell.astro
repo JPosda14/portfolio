@@ -19,7 +19,7 @@ const { photo } = getHome(Astro.props.locale);
     formats={["avif", "webp"]}
     fallbackFormat="webp"
     widths={[192, 384]}
-    sizes="12rem"
+    sizes="(max-width: 639px) 9rem, 12rem"
     loading="eager"
     class="portrait"
   />

@@ -40,7 +40,8 @@ for (const path of ["/", "/es/", "/this-page-does-not-exist/"]) {
   test(`${path} ships no JavaScript besides the inline theme script`, async ({ page }) => {
     await page.goto(path);
     await expect(page.locator("script[src]")).toHaveCount(0);
-    const inline = page.locator("script:not([src])");
+    // JSON-LD blocks are data, not executable code.
+    const inline = page.locator('script:not([src]):not([type="application/ld+json"])');
     await expect(inline).toHaveCount(1);
     expect(await inline.evaluate((script) => script.textContent)).toContain("data-theme-toggle");
   });
@@ -73,12 +74,11 @@ for (const p of pages) {
       await expect(header.locator("[data-theme-toggle]")).toBeVisible();
     });
 
-    test("the footer has the year and the source link, and no privacy link yet", async ({ page }) => {
+    test("the footer has the year and the source link", async ({ page }) => {
       await page.goto(p.path);
       const footer = page.getByRole("contentinfo");
       await expect(footer).toContainText(String(new Date().getFullYear()));
       await expect(footer.getByRole("link", { name: p.source })).toHaveAttribute("href", REPO);
-      await expect(footer.getByRole("link", { name: /privacy|privacidad/i })).toHaveCount(0);
     });
   });
 }

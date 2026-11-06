@@ -1,20 +1,23 @@
 ---
-// The privacy link is added in spec 006, together with the privacy page.
 import { links } from "../content/links.ts";
-import { getUi, type Locale } from "../i18n/index.ts";
+import { getUi, privacyPaths, type Locale } from "../i18n/index.ts";
 
 interface Props {
   locale: Locale;
 }
 
-const ui = getUi(Astro.props.locale);
+const { locale } = Astro.props;
+const ui = getUi(locale);
 const year = new Date().getFullYear();
 ---
 
 <footer class="site-footer">
   <div class="bar">
     <p>© {year} {ui.site.name}</p>
-    <a href={links.repo}>{ui.footer.source}</a>
+    <div class="links">
+      <a href={privacyPaths[locale]}>{ui.footer.privacy}</a>
+      <a href={links.repo}>{ui.footer.source}</a>
+    </div>
   </div>
 </footer>
 
@@ -33,6 +36,12 @@ const year = new Date().getFullYear();
     padding: var(--space-6) var(--margin);
     font: 500 var(--text-label) / 1.6 var(--font-mono);
     color: var(--text-2);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-6);
   }
 
   a {

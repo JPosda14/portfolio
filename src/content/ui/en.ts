@@ -72,6 +72,11 @@ export const en = {
     privateCode: "Private code",
     next: "Next project",
   },
+  privacy: {
+    title: "Privacy",
+    description: "What personal data this site and Juan Andrés Posada handle, why, and how to ask for its deletion.",
+    updated: "Updated",
+  },
   notFound: {
     title: "Page not found",
     message: "The page you are looking for does not exist or has moved.",

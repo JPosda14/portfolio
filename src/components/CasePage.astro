@@ -44,7 +44,13 @@ const story = [
 ];
 ---
 
-<BaseLayout locale={locale} alternates={casePaths(slug)} title={`${data.title} · ${ui.site.name}`} description={data.summary}>
+<BaseLayout
+  locale={locale}
+  alternates={casePaths(slug)}
+  title={`${data.title} · ${ui.site.name}`}
+  description={data.summary}
+  og={{ image: slug, type: "article" }}
+>
   <main id="main">
     <a class="back" href={`${home}#${ui.anchors.projects}`}>← {ui.case.back}</a>
 

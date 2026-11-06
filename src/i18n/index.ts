@@ -24,3 +24,6 @@ export function getHome(locale: Locale): HomeStrings {
 
 /** Paths of the same page in every language, used for hreflang and the language switch. */
 export type Alternates = Record<Locale, string>;
+
+/** The privacy page has a translated slug; the footer and sitemap use these. */
+export const privacyPaths: Alternates = { en: "/privacy/", es: "/es/privacidad/" };

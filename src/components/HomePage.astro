@@ -9,6 +9,7 @@ import PhotoCell from "./bento/PhotoCell.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { getHome, type Locale } from "../i18n/index.ts";
 import { isNowFresh } from "../lib/now.ts";
+import { personJsonLd } from "../lib/seo.ts";
 
 interface Props {
   locale: Locale;
@@ -17,9 +18,10 @@ interface Props {
 const { locale } = Astro.props;
 // Static site: "Now" is checked when the site is built, so it disappears on the first build after 90 days.
 const showNow = isNowFresh(getHome(locale).now.updated, new Date());
+const person = personJsonLd(locale, (Astro.site ?? new URL("https://juanposada.dev")).href);
 ---
 
-<BaseLayout locale={locale} alternates={{ en: "/", es: "/es/" }}>
+<BaseLayout locale={locale} alternates={{ en: "/", es: "/es/" }} jsonLd={person}>
   <main id="main">
     <div class:list={["bento", { "has-now": showNow }]}>
       <HeroCell locale={locale} />

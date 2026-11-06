@@ -1,0 +1,82 @@
+---
+// Privacy page shared by both languages. The text lives in src/content/privacy/<locale>.md.
+import * as en from "../content/privacy/en.md";
+import * as es from "../content/privacy/es.md";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { getUi, privacyPaths, type Locale } from "../i18n/index.ts";
+import { parseDay } from "../lib/now.ts";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const ui = getUi(locale);
+const { Content, frontmatter } = { en, es }[locale];
+const updated = String(frontmatter["updated"]);
+const updatedLabel = new Intl.DateTimeFormat(locale, { dateStyle: "long", timeZone: "UTC" }).format(parseDay(updated));
+---
+
+<BaseLayout locale={locale} alternates={privacyPaths} title={`${ui.privacy.title} · ${ui.site.name}`} description={ui.privacy.description}>
+  <main id="main">
+    <header>
+      <h1>{ui.privacy.title}</h1>
+      <p class="updated">{ui.privacy.updated} <time datetime={updated}>{updatedLabel}</time></p>
+    </header>
+    <div class="prose">
+      <Content />
+    </div>
+  </main>
+</BaseLayout>
+
+<style>
+  main {
+    width: 100%;
+    max-width: 46rem;
+    margin: 0 auto;
+    padding: var(--space-12) var(--margin);
+  }
+
+  header {
+    display: grid;
+    gap: var(--space-4);
+    margin-bottom: var(--space-10);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+  }
+
+  .updated {
+    font: 500 var(--text-label) / 1.4 var(--font-mono);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-2);
+  }
+
+  time {
+    color: var(--accent-text);
+  }
+
+  .prose {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-6);
+    font-size: var(--text-role);
+  }
+
+  .prose :global(p) {
+    font-size: var(--text-lg);
+    line-height: 1.7;
+    color: var(--text-2);
+  }
+
+  .prose :global(a) {
+    color: var(--accent-text);
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+  }
+</style>

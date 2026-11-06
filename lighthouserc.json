@@ -6,7 +6,8 @@
         "http://localhost/",
         "http://localhost/es/",
         "http://localhost/projects/colchones-posada/",
-        "http://localhost/es/proyectos/university-capstone/"
+        "http://localhost/es/proyectos/university-capstone/",
+        "http://localhost/privacy/"
       ],
       "numberOfRuns": 3
     },

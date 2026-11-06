@@ -5,6 +5,7 @@ import SiteHeader from "../components/SiteHeader.astro";
 import SkipLink from "../components/SkipLink.astro";
 import ThemeScript from "../components/ThemeScript.astro";
 import { defaultLocale, getUi, locales, type Alternates, type Locale } from "../i18n/index.ts";
+import { OG_HEIGHT, OG_WIDTH, ogImagePath, ogLocale } from "../lib/seo.ts";
 import "../styles/global.css";
 
 interface Props {
@@ -13,14 +14,21 @@ interface Props {
   alternates: Alternates;
   title?: string;
   description?: string;
-  /** For pages that must not be indexed (404): adds robots noindex and skips canonical/hreflang. */
+  /** For pages that must not be indexed (404): adds robots noindex and skips canonical, hreflang and share metadata. */
   noindex?: boolean;
+  /** Share image key (see ogImagePath) and Open Graph type. Defaults to the home image of the locale. */
+  og?: { image?: string; type?: "website" | "article" };
+  /** Structured data, serialized as JSON-LD. */
+  jsonLd?: object | undefined;
 }
 
-const { locale, alternates, title, description, noindex = false } = Astro.props;
+const { locale, alternates, title, description, noindex = false, og = {}, jsonLd } = Astro.props;
 const ui = getUi(locale);
 const site = Astro.site ?? new URL("https://juanposada.dev");
 const absolute = (path: string) => new URL(path, site).href;
+const pageTitle = title ?? ui.meta.title;
+const pageDescription = description ?? ui.meta.description;
+const shareImage = absolute(ogImagePath(og.image ?? "home", locale));
 ---
 
 <!doctype html>
@@ -29,8 +37,9 @@ const absolute = (path: string) => new URL(path, site).href;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <ThemeScript />
-    <title>{title ?? ui.meta.title}</title>
-    <meta name="description" content={description ?? ui.meta.description} />
+    <title>{pageTitle}</title>
+    <meta name="description" content={pageDescription} />
+    <meta name="theme-color" content="#090d16" />
     {
       noindex ? (
         <meta name="robots" content="noindex" />
@@ -39,6 +48,19 @@ const absolute = (path: string) => new URL(path, site).href;
           <link rel="canonical" href={absolute(alternates[locale])} />
           {locales.map((code) => <link rel="alternate" hreflang={code} href={absolute(alternates[code])} />)}
           <link rel="alternate" hreflang="x-default" href={absolute(alternates[defaultLocale])} />
+          <meta property="og:type" content={og.type ?? "website"} />
+          <meta property="og:site_name" content={ui.site.name} />
+          <meta property="og:title" content={pageTitle} />
+          <meta property="og:description" content={pageDescription} />
+          <meta property="og:url" content={absolute(alternates[locale])} />
+          <meta property="og:locale" content={ogLocale(locale)} />
+          {locales.filter((code) => code !== locale).map((code) => <meta property="og:locale:alternate" content={ogLocale(code)} />)}
+          <meta property="og:image" content={shareImage} />
+          <meta property="og:image:width" content={String(OG_WIDTH)} />
+          <meta property="og:image:height" content={String(OG_HEIGHT)} />
+          <meta property="og:image:alt" content={pageTitle} />
+          <meta name="twitter:card" content="summary_large_image" />
+          {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
         </>
       )
     }
