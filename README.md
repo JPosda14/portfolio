@@ -2,7 +2,7 @@
 
 Personal site of a full-stack software engineer with an AI focus. Bilingual (English at `/`, Spanish at `/es/`), static, and built with Spec-Driven Development: every feature starts as a spec with testable requirements before any code is written.
 
-> Status: work in progress. Specs 001 (foundation), 002 (hero), 003 (projects and case studies), 004 (experience and skills) and 005 (how I think, "Now" and contact) are built; privacy page and polish arrive in spec 006. Some case-study content is still marked `[PENDIENTE]`, so the release build is intentionally blocked. See [`docs/implementation-plan.md`](docs/implementation-plan.md).
+> Status: content complete, ready to deploy. Specs 001–006 are built (foundation, hero, projects and case studies, experience and skills, how I think / "Now" / contact, privacy and share previews). Some case-study content is still marked `[PENDIENTE]`, so the release build is intentionally blocked. See [`docs/implementation-plan.md`](docs/implementation-plan.md).
 
 ## Run it
 
@@ -43,6 +43,16 @@ src/content/projects/images/<slug>/    → cover and gallery images
 
 Rules enforced at build time: every project must exist in both languages, and there must be between 2 and 5 featured projects (the bento layout supports exactly that range).
 
+## Share images (Open Graph)
+
+Every indexable page has a 1200 × 630 share image in `public/og/` (`home-<lang>.png`, `<slug>-<lang>.png`). After changing a title, role or summary, regenerate them:
+
+```
+node scripts/make-og.mjs
+```
+
+It builds the site once to get the self-hosted fonts, renders a template per page with Playwright's Chromium and compresses it with sharp. The build fails if an indexable page has no share image.
+
 ## Update the "Now" cell
 
 Edit `now.text` and `now.updated` (`YYYY-MM-DD`) in `src/content/home/en.ts` and `es.ts`. The site is static, so the date is checked at build time: on the first build more than 90 days after `updated`, the cell disappears and the photo takes its place. An invalid date fails the build. The e2e test for the cell also starts failing after 90 days, as a reminder to refresh it.
@@ -59,6 +69,9 @@ Full reasoning lives in [`docs/trd.md`](docs/trd.md) and each spec's `plan.md`; 
 - **Case studies in Markdown, not MDX.** Structured fields (problem, action, result, decisions with the discarded alternative) live in the frontmatter; MDX would add a dependency without a need for components in the text.
 - **Bento layouts as data.** `projectAreas(n)` returns the grid areas for 2–5 projects; unit tests check every layout has rectangular areas, no holes and the right reading order.
 - **Contact without a form or copy button**: a `mailto` link, Cal.com, the CV and profiles. No backend, no personal data stored, no extra JavaScript.
+- **No client-side analytics.** The privacy page stays simple and there are zero third-party requests; the host's server-side traffic stats are enough to start.
+- **Share images generated from the site itself** (same fonts and colors) instead of a runtime image service or a new dependency.
+- **Scroll-driven entrance in CSS only** (`animation-timeline: view()`), never on the hero, and off with reduced motion.
 - **CSS-only view transitions** between a project card and its case page, disabled for reduced motion.
 - **Self-hosted fonts** (Playfair Display, Geist, JetBrains Mono) through the Astro Fonts API — no third-party requests.
 - **Dark by default for everyone**, with a remembered light option. Browsers report "light" whenever the OS is not in dark mode, so following the system would hide the primary design from most visitors.

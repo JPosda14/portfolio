@@ -59,6 +59,15 @@
 - Siguiente tras 005: contenido real de proyectos (conversaciones por proyecto) → spec 006.
 - Caso Colchones Posada lleno (2026-11-05, EN/ES, sin [PENDIENTE]): datos de Juan; cifras confirmadas: 20 cotizaciones el primer mes, 50 ventas desde el lanzamiento (formulario + WhatsApp), PageSpeed móvil 100/96/100/100 (5 nov 2026). Capturas WebP reales (portada, ficha, cotización) tomadas con el script de Juan (`capturas-portafolio.mjs`, fuera del repo; se ejecuta copiándolo a `scripts/` temporalmente para usar playwright/sharp del proyecto). Las alternativas descartadas de las decisiones las redacté a partir de su texto.
 - Caso CUE Event Manager lleno (2026-11-05): Juan fue Project Manager en la empresa simulada JASS Code (equipo de 3; Tech Lead Juan Gerardo Méndez escribió las guías de Git y técnica; PO Samuel Berrio). Juan escribió acta, levantamiento de requisitos y product backlog, y aportó parte del código. No atribuirle las guías ni la arquitectura. Capturas de su carpeta local "Contexto de proyecto CUE Event Manager" recortadas sin la barra lateral (mostraba el correo de un compañero); evitar la del calendario (nombre de evento ofensivo). Ya no queda ningún [PENDIENTE]: `npm run build` de publicación pasa.
+- 006 T1–T5 hechas (2026-11-05, modo ligero):
+  - Privacidad: `src/content/privacy/{en,es}.md` + `PrivacyPage`, rutas `/privacy/` ↔ `/es/privacidad/` (`privacyPaths` en i18n) y enlace en el pie.
+  - Meta OG/Twitter, `theme-color` y JSON-LD `Person` (home) en `BaseLayout` vía `src/lib/seo.ts`.
+  - `public/og/*.png` generadas con `node scripts/make-og.mjs`: compila con `SKIP_OG_GUARD=1` para sacar las fuentes y hace la captura con Playwright. `og-guard` bloquea el build si falta una imagen.
+  - Entrada suave con `animation-timeline: view()` en propiedades individuales; el minificador rompe el shorthand.
+  - `a11y.spec` corre con movimiento reducido.
+  - Decisión de Juan: sin analítica con script.
+  - Todo en verde: 53 unit, 316 e2e, Lighthouse 99–100. Spec 006 validada y cerrada (2026-11-05): 13/13 RF; cierra también RF8 de 001.
+- Siguiente: Fase 5 (verificación completa, Cyber Neo) → Fase 6 (Cloudflare + juanposada.dev; reconstrucción programada por "Ahora").
 - Spec 003-proyectos: spec, plan y 9 tareas aprobados (sin dependencias nuevas; Markdown en vez de MDX; build de prueba con ALLOW_PENDING).
 - Repos revisados: colchones-posada público (README es el de create-next-app; desplegado en Vercel Hobby, que prohíbe uso comercial → avisar a Juan). cue-event-manager: microservicios Java + frontend React/Vite/MUI; en los repos públicos solo aparecen commits de Jmendezzz y SamuelBerrio, no de JPosda14 → confirmar rol de Juan. Juan quiere la estructura completa ya, con contenido e imágenes de ejemplo marcados [PENDIENTE]; el contenido real se llena después en conversaciones por proyecto.
 - Para 006: `sizes` de la foto en móvil (9rem).
